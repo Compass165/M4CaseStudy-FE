@@ -1,0 +1,44 @@
+
+#address{
+    background-color: aliceblue;
+    color: black;
+    font-size: 15px
+}
+.cv_file{
+    background-color: aliceblue;
+    color: black;
+    font-size: 60px
+}
+#a{
+    background-color: aliceblue;
+    color: black;
+    font-size: 15px
+
+}
+#b {
+    font-size: 50px
+}
+#date_of_birth{
+    background-color: aliceblue;
+    color: black;
+    font-size: 15px
+}
+#name{
+    background-color: aliceblue;
+    color: black;
+    font-size: 15px
+}
+#app_user_id{
+    background-color: aliceblue;
+    color: black;
+    font-size: 15px
+}
+#income_id{
+    background-color: aliceblue;
+    color: black;
+    font-size: 15px
+}
+#add{
+    background-color: blue;
+    font-size: 15px
+}
