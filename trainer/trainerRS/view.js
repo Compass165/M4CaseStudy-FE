@@ -1,12 +1,10 @@
-showListTrainer(0);
+showViewTrainer(id);
 
-function showListTrainer(page) {
-    let next = page + 1;
-    let previous = page - 1;
+function showViewTrainer(id) {
     $.ajax({
         type: "GET",
         //tên API
-        url: "http://localhost:8080/trainer/page?page=" + page,
+        url: "http://localhost:8080/trainer/" + id,
         //xử lý khi thành công
         success: function (data) {
             // hien thi danh sach o day
@@ -37,27 +35,8 @@ function getTrainer(trainer) {
     return `<tr><td >${trainer.name}</td>
                 <td >${trainer.dateOfBirth}</td>
                 <td >${trainer.address}</td>` +
-                `<td><a class="action" href="../trainerRS/view.html">View</a></td>` +
-                `<td><a class="action" href="../trainerCUD/update/update.html">Edit</a></td>` +
-                `<td><a class="action" href="${trainer.id}" onclick="deleteById(this)">Delete</a></td>
+        `<td><a class="action" href="../trainerRS/view.html">View</a></td>` +
+        `<td><a class="action" href="../trainerCUD/update/update.html">Edit</a></td>` +
+        `<td><a class="action" href="${trainer.id}" onclick="deleteById(this)">Delete</a></td>
                 </tr>`;
-}
-
-function deleteById(element){
-    //lay du lieu
-    let id = element.getAttribute("href");
-    // goi ajax
-    $.ajax({
-        type: "DELETE",
-        //tên API
-        url: "http://localhost:8080/trainer/" + id,
-        //xử lý khi thành công
-        success: function (data) {
-            console.log("Xoa thanh cong ");
-            showListTrainer();
-        }
-
-    });
-    //chặn sự kiện mặc định của thẻ
-    event.preventDefault();
 }
