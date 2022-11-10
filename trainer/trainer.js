@@ -4,27 +4,43 @@ function showListTrainer(page) {
     $.ajax({
         type: "GET",
         //tên API
-        url: "http://localhost:8080/trainer/page?page=" + page,
+        url: "http://localhost:8080/trainer",
         //xử lý khi thành công
         success: function (response) {
             $('#abc').empty();
             // hien thi danh sach o day
-            let content = '    <div><table><tr>\n' +
+            let content = '<div class="content mt-3"><div class="animated fadeIn"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header">\n' +
+                '                                <strong class="card-title">Danh sách huấn luyện viên</strong>\n' +
+                '                            </div>\n' +
+                '                            <div class="card-body">\n' +
+                '                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">\n' +
+                '                                    <thead>\n' +
+                '                                        <tr>' +
                 '        <td>Name</td>\n' +
                 '        <td>Birthday</td>\n' +
                 '        <td>Address</td>\n' +
                 '        <td>View</td>\n' +
                 '        <td>Edit</td>\n' +
                 '        <td>Delete</td>\n' +
-                '    </tr>';
-            for (let i = 0; i < response.content.length; i++) {
-                content += getTrainer(response.content[i]);
+                '    </tr></thead><tbody>';
+            for (let i = 0; i < response.length; i++) {
+                content += getTrainer(response[i]);
             }
-            content += '</table><div>\n' +
-                '  <button onclick=showListTrainer('+previous+')>Previous</button>' +
-                + (response.pageable.pageNumber + 1) + '/' + response.totalPages +
-                '  <button onclick=showListTrainer('+next+')>Next</button>' +
-                '</div></div>';
+            content += '</tbody>\n' +
+                '                                </table>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '\n' +
+                '\n' +
+                '                </div>\n' +
+                '            </div>' +
+                '            </div>';
+            // content += '</table><div>\n' +
+            //     '  <button onclick=showListTrainer('+previous+')>Previous</button>' +
+            //     + (response.pageable.pageNumber + 1) + '/' + response.totalPages +
+            //     '  <button onclick=showListTrainer('+next+')>Next</button>' +
+            //     '</div></div>';
             // document.getElementById('abc').innerHTML = content;
             $('#abc').append(content);
         }
