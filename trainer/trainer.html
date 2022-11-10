@@ -73,7 +73,7 @@
 
                 <h3 class="menu-title">Danh sách</h3><!-- /.menu-title -->
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" onclick="showListTrainer(0)" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-infinite"></i>Huấn luyện viên</a>
+                    <a href="#" onclick="showListTrainer()" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-infinite"></i>Huấn luyện viên</a>
                 </li>
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-dribbble"></i>Cầu thủ</a>
@@ -268,9 +268,63 @@
             </div>
         </div>
 
-<!--        <table id="abc">-->
-<!--&lt;!&ndash;            viết cái j đó vào trang đầu&ndash;&gt;-->
-<!--        </table>-->
+<!--        Modal create-->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Create
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add-trainer">
+                            <table>
+                                <tr>
+                                    <td>address:</td>
+                                    <td><input type="text" id="address" placeholder="address"></td>
+                                </tr>
+                                <tr>
+                                    <td>date_of_birth:</td>
+                                    <td><input type="text" id="date_of_birth" placeholder="date_of_birth"></td>
+                                </tr>
+                                <tr>
+                                    <td>name:</td>
+                                    <td><input type="text" id="name" placeholder="name"></td>
+                                </tr>
+                                <tr>
+                                    <td>app_user_id:</td>
+                                    <td><input type="text" id="app_user_id" placeholder="app_user_id"></td>
+                                </tr>
+                                <tr>
+                                    <td>income_id:</td>
+                                    <td><input type="text" id="income_id" placeholder="income_id"></td>
+                                </tr>
+                                <tr>
+                                    <td>cv:</td>
+                                    <td id="cv_file"><input type="text" id="a" placeholder="cv_file"></td>
+                                </tr>
+                                <td></td>
+                                <td><input id="add" type="submit" value="Add" onclick="addNewTrainer()"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">

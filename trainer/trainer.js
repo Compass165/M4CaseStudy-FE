@@ -1,6 +1,4 @@
-function showListTrainer(page) {
-    let next = page + 1;
-    let previous = page - 1;
+function showListTrainer() {
     $.ajax({
         type: "GET",
         //tên API
@@ -9,7 +7,7 @@ function showListTrainer(page) {
         success: function (response) {
             $('#abc').empty();
             // hien thi danh sach o day
-            let content = '<div class="content mt-3"><div class="animated fadeIn"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header">\n' +
+            let content = '<div class="animated fadeIn"><div class="row"><div class="col-md-12"><div class="card"><div class="card-header">\n' +
                 '                                <strong class="card-title">Danh sách huấn luyện viên</strong>\n' +
                 '                            </div>\n' +
                 '                            <div class="card-body">\n' +
@@ -34,7 +32,6 @@ function showListTrainer(page) {
                 '\n' +
                 '\n' +
                 '                </div>\n' +
-                '            </div>' +
                 '            </div>';
             // content += '</table><div>\n' +
             //     '  <button onclick=showListTrainer('+previous+')>Previous</button>' +
@@ -57,4 +54,40 @@ function getTrainer(trainer) {
         `<td><a class="action" href="../trainerCUD/update/update.html">Edit</a></td>` +
         `<td><a class="action" href="${trainer.id}" onclick="deleteById(this)">Delete</a></td>
                 </tr>`;
+}
+
+function addNewTrainer() {
+    //lay du lieu
+    let address = $('#address').val();
+    let cv_file = $('#cv_file').val();
+    let date_of_birth = $('#date_of_birth').val();
+    let name = $('#name').val();
+    let app_user_id = $('#app_user_id').val();
+    let income_id = $('#income_id').val();
+    let newTrainer = {
+        address: address,
+        cv_file: cv_file,
+        date_of_birth: date_of_birth,
+        name: name,
+        app_user_id: app_user_id,
+        income_id:income_id
+    };
+    // goi ajax
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        data: JSON.stringify(newTrainer),
+        //tên API
+        url: "http://localhost:8080/trainer",
+        //xử lý khi thành công
+        success: function (){
+            showListTrainer();
+        }
+
+    });
+    //chặn sự kiện mặc định của thẻ
+    event.preventDefault();
 }
