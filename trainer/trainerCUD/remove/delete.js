@@ -13,15 +13,15 @@
 //     localStorage.removeItem("object");
 // }
 function getTrainer(trainer){
-    return  <td><a class="deleteTrainer" onclick="deleteById($(this))" href="${trainer.id}">delete</a></td>
+    return  <td><a class="deleteTrainer" onclick="remoteById($(this))" href="${trainer.id}">delete</a></td>
 }
 function removeById(id){
-    let smartphoneId=id.attr("href");
+    let trainerId=id.attr("href");
     $.ajax({
         type:"DELETE",
-        url:'http://localhost:8080/trainer/${id}',
+        url:'http://localhost:8080/trainer/'+trainerId,
         success: function (data){
-            a.parent().parent().remove();
+            id.parent().parent().remove();
         }
     });
     event.preventDefault();

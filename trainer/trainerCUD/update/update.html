@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>huy baba</title>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="update.js"></script>
 </head>
 <body>
 <form id="add-trainer">
@@ -32,8 +33,9 @@
       <td>cv:</td>
       <td id="cv_file"><input type="text" id="a" placeholder="cv_file"></td>
     </tr>
-      <td></td>
-      <td><input id="add" type="submit" value="Add" onclick="addNewTrainer()"></td>
+    <td></td>
+    <td><input id="update" type="submit" value="update" onclick="updateTrainer()"></td>
+
     </tr>
   </table>
 </form>
@@ -41,6 +43,5 @@
 <h1>Trainer List</h1>
 <table id="trainerList">
 </table>
-<script src="create.js"></script>
 </body>
 </html>
