@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/M4CaseStudy-FE.iml" filepath="$PROJECT_DIR$/.idea/M4CaseStudy-FE.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/springboot-football-team-management-FE.iml" filepath="$PROJECT_DIR$/.idea/springboot-football-team-management-FE.iml" />
+>>>>>>> 8feda4338405c2b622239f377bc04956201a6990
     </modules>
   </component>
 </project>
