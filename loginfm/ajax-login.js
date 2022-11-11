@@ -11,7 +11,7 @@ function checkLogin() {
         // $('#dropdownMenuButton1').hide();
         // $('#profile').hide();
         console.log("loi")
-      swal("something was wrong")
+      // swal("something was wrong")
     }
     else {
         document.getElementById("name").innerHTML = currentUser.username;
@@ -26,12 +26,12 @@ function checkLogin() {
 
 checkLogin();
 
-function logout() {
-    // localStorage.clear();
-    localStorage.removeItem("token");
-    localStorage.removeItem("currentUser");
-    window.location.href = "page-login.html";
-}
+// function logout() {
+//     // localStorage.clear();
+//     localStorage.removeItem("token");
+//     localStorage.removeItem("currentUser");
+//     window.location.href = "page-login.html";
+// }
 // $('#logout').click(function () {
 //     localStorage.clear();
 //     location.href="/page-login.html";
