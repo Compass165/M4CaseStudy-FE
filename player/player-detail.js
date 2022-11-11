@@ -1,16 +1,15 @@
+let token = localStorage.getItem("token");
+let id = JSON.parse(localStorage.getItem("currentUser")).id;
 showPlayer();
-// let token = localStorage.getItem("token")
 function showPlayer() {
-
-     // let id = element.getAttribute("id");
     $.ajax({
-        // headers: {
-        //     'Accept': 'application/json', 'Content-Type': 'application/json'
-        // },
-        // beforeSend: function (xhr) {
-        //     xhr.setRequestHeader ("Authorization", "Bearer " + token);
-        // },
-        type: "get", url: "http://localhost:8080/player/find-player-by-id/14",
+        headers: {
+            'Accept': 'application/json', 'Content-Type': 'application/json'
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        type: "get", url: "http://localhost:8080/player/find-player-by-id/"+ id,
         success: function (data) {
             let name = `<h2>` + data.name + `</h2>`
             $('#player-name').append(name);
