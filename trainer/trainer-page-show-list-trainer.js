@@ -203,3 +203,22 @@ function addNewTrainer() {
     //chặn sự kiện mặc định của thẻ
     event.preventDefault();
 }
+
+function deleteById(element){
+    //lay du lieu
+    let id = element.getAttribute("href");
+    // goi ajax
+    $.ajax({
+        type: "DELETE",
+        //tên API
+        url: "http://localhost:8080/trainer/" + id,
+        //xử lý khi thành công
+        success: function (data) {
+            console.log("Xoa thanh cong ");
+            showListTrainer();
+        }
+
+    });
+    //chặn sự kiện mặc định của thẻ
+    event.preventDefault();
+}
