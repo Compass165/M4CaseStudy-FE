@@ -40,7 +40,7 @@ function showListPlayer() {
 }
 
 function addNewTrainer() {
-    //lay du lieu
+    //lay du lieu.
     let address = $('#address').val();
     let cv_file = $('#cv_file').val();
     let date_of_birth = $('#date_of_birth').val();
