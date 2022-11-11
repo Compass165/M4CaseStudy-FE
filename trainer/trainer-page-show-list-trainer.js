@@ -1,13 +1,18 @@
+let token = localStorage.getItem("token");
+
 $(document).ready(function() {
 let totalPages = 1;
-function showListTrainer(startPage, nameSearch) {
+function showListTrainer(startPage, size, nameSearch) {
     $.ajax({
         type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
         //tên API
         url: "http://localhost:8080/trainer/page",
         data: {
             page: startPage,
-            size: 10,
+            size: size,
             name: nameSearch
         },
         //xử lý khi thành công
@@ -19,12 +24,11 @@ function showListTrainer(startPage, nameSearch) {
                 let noteRow = '<tr>' +
                     '<td>' + trainer.name + '</td>' +
                     '<td>' + trainer.dateOfBirth + '</td>' +
-                    '<td>' + trainer.dateOfBirth + '</td>' +
                     '<td>' + trainer.address + '</td>' +
                     '</tr>';
                 $('#bootstrap-data-table-export tbody').append(noteRow);
             });
-            let abc = 'Hiển thị từ ' + (response.size*response.pageable.pageNumber+1) + ' tới ' + (response.size*response.pageable.pageNumber+10) + ' trong ' + response.totalElements + ' HLV';
+            let abc = 'Hiển thị từ ' + ((response.size*response.pageable.pageNumber)+1) + ' tới ' + ((response.size*response.pageable.pageNumber)+response.size) + ' trong ' + response.totalElements + ' HLV';
             $('#bootstrap-data-table-export_info').append(abc);
 
             // if ($('ul.pagination li').length - 2 != response.totalPages) {
@@ -96,11 +100,16 @@ function buildPagination(response) {
     $("ul.pagination").append(pagingLink);
 }
 
-$(document).on("keyup", 'div.dataTables_filter label input.form-control.form-control-sm', function() {
+// Hứng sự kiện search
+$(document).on("change", 'div.dataTables_filter label input.form-control.form-control-sm', function() {
     let nameSearch = $(this).val();
-    showListTrainer(0, nameSearch);
-    // //chặn sự kiện mặc định của thẻ
-    // event.preventDefault();
+    showListTrainer(0, 10, nameSearch);
+});
+
+// Hứng sự kiện size page
+$(document).on("change", 'div.dataTables_length label select.custom-select.custom-select-sm.form-control.form-control-sm', function() {
+    let size = $(this).val();
+    showListTrainer(0, size, '');
 });
 
 $(document).on("click", "ul.pagination li a", function() {
@@ -154,7 +163,7 @@ $(document).on("click", "ul.pagination li a", function() {
 
 (function(){
     // get first-page at initial time
-    showListTrainer(0, '');
+    showListTrainer(0, 10, '');
 })();
 });
 
