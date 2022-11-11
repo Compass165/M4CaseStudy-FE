@@ -26,12 +26,12 @@ function checkLogin() {
 
 checkLogin();
 
-function logout() {
-    // localStorage.clear();
-    localStorage.removeItem("token");
-    localStorage.removeItem("currentUser");
-    window.location.href = "page-login.html";
-}
+// function logout() {
+//     // localStorage.clear();
+//     localStorage.removeItem("token");
+//     localStorage.removeItem("currentUser");
+//     window.location.href = "page-login.html";
+// }
 // $('#logout').click(function () {
 //     localStorage.clear();
 //     location.href="/page-login.html";
