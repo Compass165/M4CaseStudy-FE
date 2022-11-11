@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <script src="player-detail.js"></script>
 
 </head>
 
@@ -53,12 +54,12 @@
 
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li>
                     <a href="player-page.html"> <i class="menu-icon fa fa-home"></i>Trang chủ</a>
                 </li>
 
                 <h3 class="menu-title">Thông tin cá nhân</h3><!-- /.menu-title -->
-                <li>
+                <li class="active">
                     <a href="player-detail.html" > <i class="menu-icon fa fa-id-card-o"></i>Xem chi tiết</a>
                 </li>
                 <li class="menu-item-has-children dropdown">
@@ -265,7 +266,7 @@
             </div>
         </div>
     </div>
-
+<div id="player-detail-body"></div>
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
@@ -279,7 +280,7 @@
                                              style="width:85px; height:85px;" alt="" src="/images/admin.jpg">
                                     </a>
                                     <div class="media-body">
-                                        <h2 class="text-light display-6">Jim Doe</h2>
+                                        <h2 class="text-light display-6" id="player-name"></h2>
                                         <p>Cầu thủ chuyên nghiệp thuộc đội tuyển Real MyDinh</p>
                                     </div>
                                 </div>
@@ -290,10 +291,10 @@
                                     <h5 class="heading-title mb-1 text-secondary" style="padding-left: 10px">Thông tin cơ bản</h5>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-info-circle"></i> Ngày sinh</a>
+                                            <a href="#"> <i class="fa fa-info-circle"></i> Ngày sinh <span class="float-right" id="dob"></span></a>
                                         </li>
                                         <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-home"></i> Địa chỉ </a>
+                                            <a href="#"> <i class="fa fa-home"></i> Địa chỉ <span class="float-right" id="address"></span></a>
                                         </li>
                                     </ul>
 
@@ -303,10 +304,14 @@
                                     <h5 class="heading-title mb-1 text-secondary" style="padding-left: 10px" >Thông tin tài khoản</h5>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-user-circle"></i> Tên đăng nhập </a>
+                                            <a href="#"> <i class="fa fa-user-circle"></i> Tên đăng nhập <span class="float-right" id="username"></span></a>
                                         </li>
                                         <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-user"></i> Password </a>
+                                            <a href="#"> <i class="fa fa-user"></i> Password <span class="float-right" type="password" id="show_hide_password"></span>
+<!--                                                <div class="input-group-addon float-right">-->
+<!--                                                    <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>-->
+<!--                                                </div>-->
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -317,33 +322,32 @@
                                     <h5 class="heading-title mb-1 text-secondary" style="padding-left: 10px">Thông tin chuyên môn</h5>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-info"></i> Chiều cao <span
-                                                class="badge badge-primary pull-right">10</span></a>
+                                            <a href="#"> <i class="fa fa-info"></i> Chiều cao <span class="float-right" id="height"></span></a>
                                         </li>
                                         <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-info"></i> Cân nặng <span
-                                                class="badge badge-danger pull-right">15</span></a>
+                                            <a href="#"> <i class="fa fa-info"></i> Cân nặng <span class="float-right" id="weight"></span></a>
                                         </li>
 
                                         <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-check-square-o"></i> Trạng thái <span
-                                                class="badge badge-warning pull-right r-activity">03</span></a>
+                                            <a href="#"> <i class="fa fa-check-square-o"></i> Trạng thái <span class="float-right" id="status"></span></a>
                                         </li>
                                         <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-briefcase"></i> Vị trí thi đấu <span
-                                                class="badge badge-success pull-right">11</span></a>
+                                            <a href="#"> <i class="fa fa-briefcase"></i> Vị trí thi đấu<span class="float-right" id="position"></span></a>
                                         </li>
                                         <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-bolt"></i> Phong độ <span
-                                                class="badge badge-warning pull-right r-activity">03</span></a>
+                                            <a href="#"> <i class="fa fa-bolt"></i> Phong độ <span class="float-right" id="performance"></span></a>
+                                        </li>
+                                        <li class="list-group-item menu-item-has-children dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-money"></i> Lương thưởng <span class="float-right" id="salary"></span></a>
+                                            <ul class="sub-menu children dropdown-menu">
+                                                <li>Lương cứng</li>
+                                                <li>Thưởng</li>
+                                                <li>Thời gian thi đấu</li>
+                                                <li>Tổng thu nhập</li>
+                                            </ul>
                                         </li>
                                         <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-money"></i> Lương thưởng <span
-                                                class="badge badge-warning pull-right r-activity">03</span></a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="#"> <i class="fa fa-file"></i> Profile (đính kèm) <span
-                                                class="badge badge-warning pull-right r-activity">03</span></a>
+                                            <a href="#"> <i class="fa fa-file"></i> Profile (đính kèm) <span class="float-right" id="profile"></span></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -356,7 +360,6 @@
             </div><!-- .row -->
         </div><!-- .animated -->
     </div><!-- .content -->
-
 
 </div><!-- /#right-panel -->
 
