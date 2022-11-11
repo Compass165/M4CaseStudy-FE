@@ -10,11 +10,13 @@ function checkLogin() {
     if (currentUser === null) {
         $('#dropdownMenuButton1').hide();
         $('#profile').hide();
+        console.log("loi")
     }
     else {
         document.getElementById("name").innerHTML = currentUser.username;
         $('#dropdownMenuButton').hide();
     }
+    login()
 }
 
 checkLogin();
