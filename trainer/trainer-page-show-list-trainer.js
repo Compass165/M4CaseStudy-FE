@@ -31,7 +31,7 @@ function showListTrainer(startPage) {
                 // $('ul.pagination').empty();
                 // buildPagination(response);
             // }
-            // build pagination list at the first time loading
+            // build pagination list at the first time loading.
             $('ul.pagination').empty();
             buildPagination(response);
         },
