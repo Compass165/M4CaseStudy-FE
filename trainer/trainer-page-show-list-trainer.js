@@ -23,7 +23,7 @@ function showListTrainer(startPage, size, nameSearch) {
             $.each(response.content, (id, trainer) => {
                 let noteRow = '<tr>' +
                     '<td>' + trainer.name + '</td>' +
-                    '<td>' + trainer.dateOfBirth + '</td>' +
+                    '<td>' + trainer.dateOfBirth.slice(0,10) + '</td>' +
                     '<td>' + trainer.address + '</td>' +
                     '</tr>';
                 $('#bootstrap-data-table-export tbody').append(noteRow);
