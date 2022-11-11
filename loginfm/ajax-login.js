@@ -27,6 +27,10 @@ function logout() {
     localStorage.removeItem("currentUser");
     window.location.href = "page-login.html";
 }
+// $('#logout').click(function () {
+//     localStorage.clear();
+//     location.href="/page-login.html";
+// })
 
 function login() {
     let username = $('#name').val();
