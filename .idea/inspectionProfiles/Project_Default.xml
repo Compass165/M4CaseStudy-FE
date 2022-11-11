@@ -2,6 +2,9 @@
   <profile version="1.0">
     <option name="myName" value="Project Default" />
     <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+<<<<<<< HEAD
     <inspection_tool class="JSHint" enabled="false" level="ERROR" enabled_by_default="false" />
+=======
+>>>>>>> ef4831cda0771e9760c4cb8035c0f0d1df38b1f5
   </profile>
 </component>
