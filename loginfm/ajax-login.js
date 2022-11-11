@@ -11,7 +11,7 @@ function checkLogin() {
         // $('#dropdownMenuButton1').hide();
         // $('#profile').hide();
         console.log("loi")
-      swal("something was wrong")
+      // swal("something was wrong")
     }
     else {
         document.getElementById("name").innerHTML = currentUser.username;
