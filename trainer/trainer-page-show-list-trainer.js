@@ -120,12 +120,12 @@ $(document).on("click", "ul.pagination li a", function() {
     // click on the NEXT tag
     if(val.toUpperCase() === "« FIRST") {
         let currentActive = $("li.active");
-        showListTrainer(0);
+        showListTrainer(0, 10, '');
         $("li.active").removeClass("active");
         // add .active to next-pagination li
         currentActive.next().addClass("active");
     } else if(val.toUpperCase() === "LAST »") {
-        showListTrainer(totalPages - 1);
+        showListTrainer(totalPages - 1, 10, '');
         $("li.active").removeClass("active");
         // add .active to next-pagination li
         currentActive.next().addClass("active");
@@ -134,7 +134,7 @@ $(document).on("click", "ul.pagination li a", function() {
         if(activeValue < totalPages){
             let currentActive = $("li.active");
             startPage = activeValue;
-            showListTrainer(startPage);
+            showListTrainer(startPage, 10, '');
             // remove .active class for the old li tag
             $("li.active").removeClass("active");
             // add .active to next-pagination li
@@ -145,7 +145,7 @@ $(document).on("click", "ul.pagination li a", function() {
         if(activeValue > 1) {
             // get the previous page
             startPage = activeValue - 2;
-            showListTrainer(startPage);
+            showListTrainer(startPage, 10, '');
             let currentActive = $("li.active");
             currentActive.removeClass("active");
             // add .active to previous-pagination li
@@ -153,7 +153,7 @@ $(document).on("click", "ul.pagination li a", function() {
         }
     } else {
         startPage = parseInt(val - 1);
-        showListTrainer(startPage);
+        showListTrainer(startPage, 10, '');
         // add focus to the li tag
         $("li.active").removeClass("active");
         $(this).parent().addClass("active");
