@@ -1,5 +1,7 @@
 let token = localStorage.getItem("token");
+let idChoose;
 let objChoose;
+let appUserChoose;
 showListTrainer(0, 10, '');
 let totalPages = 1;
 function showListTrainer(startPage, size, nameSearch) {
@@ -17,14 +19,15 @@ function showListTrainer(startPage, size, nameSearch) {
         },
         //xử lý khi thành công
         success: function (response) {
+            console.log(response);
             $('#bootstrap-data-table-export tbody').empty();
             // add table rows
             $.each(response.content, (id, trainer) => {
                 let noteRow = '<tr>' +
                     '<td>' + trainer.name + '</td>' +
-                    '<td>' + trainer.dateOfBirth.slice(0,10) + '</td>' +
+                    '<td>' + trainer.dateOfBirth + '</td>' +
                     '<td>' + trainer.address + '</td>' +
-                    '<td><button type="button" onclick="getDetail(' + response + ')" class="btn btn-success" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-magic"></i>&nbsp; Edit</button></td>' +
+                    '<td><button type="button" onclick="getDetail(' + trainer.id + ')" class="btn btn-success" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-magic"></i>&nbsp; Edit</button></td>' +
                     '<td><button type="button" onclick="deleteById(' + trainer.id + ')" class="btn btn-danger"><i class="fa fa-rss"></i>&nbsp; Delete</button></td>' +
                     '</tr>';
                 $('#bootstrap-data-table-export tbody').append(noteRow);
@@ -219,24 +222,26 @@ function deleteById(id){
     event.preventDefault();
 }
 
-function getDetail(dataObj) {
-    objChoose = dataObj;
+function getDetail(id) {
+    idChoose = id;
     $.ajax({
         type: "GET",
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
-        url: "http://localhost:8080/trainer/" + dataObj.id,
+        url: "http://localhost:8080/trainer/" + id,
         //xử lý khi thành công
         success: function (response) {
+            objChoose = response;
+            appUserChoose = response.appUser;
             let placeholderName = '<input type="text" id="edit-name-val" value="' + response.name + '" class="form-control">'
             $('#edit-name').empty().append(placeholderName);
             let placeholderAddress = '<input type="text" id="edit-address-val" value="' + response.address + '" class="form-control">'
             $('#edit-address').empty().append(placeholderAddress);
-            let placeholderAcc = '<p class="form-control-static">' + response.appUser.name + '</p>'
+            let placeholderAcc = '<p class="form-control-static">' + appUserChoose.name + '</p>'
             $('#edit-account').empty().append(placeholderAcc);
-            let placeholderPass = '<input type="text" id="edit-password-val" value="' + response.appUser.password + '" class="form-control">'
+            let placeholderPass = '<input type="text" id="edit-password-val" value="' + appUserChoose.password + '" class="form-control">'
             $('#edit-password').empty().append(placeholderPass);
         },
         error : function(e) {
@@ -248,7 +253,7 @@ function getDetail(dataObj) {
 
 // Hứng sự kiện edit
 $(document).on("click", 'div.modal-content div.modal-footer button.btn.btn-primary', function() {
-    editById(objChoose.id);
+    editById(idChoose);
 });
 
 function editById(id) {
@@ -258,18 +263,19 @@ function editById(id) {
     let address = $('#edit-address-val').val();
     let password = $('#edit-password-val').val();
     let cv_file = $('#edit-file-val').val();
+    let appUser = {
+        id: appUserChoose.id,
+        name: appUserChoose.name,
+        password: password,
+        roleSet: appUserChoose.roleSet
+    }
     let object = {
         name: name,
         dateOfBirth: date_of_birth,
         address: address,
         income: objChoose.income,
         cvFile: cv_file,
-        appUser: {
-            id: objChoose.appUser.id,
-            name: objChoose.appUser.name,
-            password: password,
-            roleSet: objChoose.roleSet
-        },
+        appUser: appUser,
     };
     // goi ajax
     $.ajax({
@@ -286,6 +292,7 @@ function editById(id) {
         url: "http://localhost:8080/trainer/edit/" + id,
         //xử lý khi thành công
         success: function (){
+            console.log("win")
             showListTrainer(0, 10, '');
         }
 
