@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Trainer Page</title>
+    <title>Admin Page</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="../vendors/selectFX/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="../vendors/jqvmap/dist/jqvmap.min.css">
-    <link rel="stylesheet" href="../vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
 
 
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -56,50 +54,50 @@
                 </li>
 
                 <h3 class="menu-title">Thông tin cá nhân</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-id-card-o"></i>Xem chi tiết</a>
+                <li>
+                    <a href="admin-page-show-detail-admin.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-id-card-o"></i>Xem chi tiết</a>
                 </li>
 
                 <h3 class="menu-title">Huấn luyện viên</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="../trainer/trainer-page-show-list-trainer.html" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sitemap "></i> Danh sách h.luyện viên</a>
+                <li>
+                    <a href="admin-page-show-list-trainer.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sitemap"></i>Danh sách</a>
                 </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i> Tổng lương</a>
+                <li>
+                    <a href="admin-page-show-list-income-trainer.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-money"></i>Bảng lương</a>
                 </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i> Biểu đồ lương</a>
+                <li>
+                    <a href="admin-page-show-chart-income-trainer.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Biểu đồ lương</a>
                 </li>
 
                 <h3 class="menu-title">Cầu thủ</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle"  aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sitemap "></i>Danh sách cầu thủ</a>
+                <li>
+                    <a href="admin-page-show-list-player.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sitemap "></i>Danh sách</a>
                 </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="admin-page-showListPlayer.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Tổng lương</a>
+                <li>
+                    <a href="admin-page-show-list-income-player.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-money"></i>Bảng lương</a>
                 </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="admin-page-showListPlayer.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Biểu đồ lương</a>
+                <li>
+                    <a href="admin-page-show-chart-income-player.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Biểu đồ lương</a>
                 </li>
 
                 <h3 class="menu-title">Liên hệ</h3><!-- /.menu-title -->
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-email"></i>Gửi mail</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon ti-upload"></i><a href="../page-login.html">Gửi báo cáo</a></li>
-                        <li><i class="menu-icon ti-dribbble"></i><a href="../page-register.html">Gửi mail cho cầu thủ</a></li>
+                        <li><i class="menu-icon ti-download"></i><a href="https://mail.google.com/mail/u/0/#inbox">Gửi mail cho huấn luyện viên</a></li>
+                        <li><i class="menu-icon ti-dribbble"></i><a href="https://mail.google.com/mail/u/0/#inbox">Gửi mail cho cầu thủ</a></li>
                         <li><i class="menu-icon ti-google"></i><a href="https://mail.google.com/mail/u/0/#inbox">Gmail cá nhân</a></li>
                     </ul>
                 </li>
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-pencil-square-o"></i>Nhật ký</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon ti-ink-pen"></i><a href="../page-login.html">Nhật ký cá nhân</a></li>
-                        <li><i class="menu-icon ti-trello"></i><a href="../page-register.html">Nhật ký thi đấu</a></li>
+                        <li><i class="menu-icon ti-ink-pen"></i><a href="#">Nhật ký cá nhân</a></li>
+                        <li><i class="menu-icon ti-trello"></i><a href="#">Nhật ký thi đấu</a></li>
                     </ul>
                 </li>
-                <li class="menu-item-has-children dropdown">
-                    <a href="../page-login.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sign-out"></i>Đăng xuất</a>
+                <li>
+                    <a href="../loginfm/page-login.html" onclick="logout()" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sign-out"></i>Đăng xuất</a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -209,159 +207,25 @@
 
                         <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
 
-                        <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
-                    </div>
-                </div>
-
-                <div class="language-select dropdown" id="language-select">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown"  id="language" aria-haspopup="true" aria-expanded="true">
-                        <i class="flag-icon flag-icon-us"></i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="language">
-                        <div class="dropdown-item">
-                            <span class="flag-icon flag-icon-fr"></span>
-                        </div>
-                        <div class="dropdown-item">
-                            <i class="flag-icon flag-icon-es"></i>
-                        </div>
-                        <div class="dropdown-item">
-                            <i class="flag-icon flag-icon-us"></i>
-                        </div>
-                        <div class="dropdown-item">
-                            <i class="flag-icon flag-icon-it"></i>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </header><!-- /header -->
-    <!-- Header-->
-
-    <!--    Đoạn này thấy không cần thiết-->
-    <div class="breadcrumbs">
-        <!--        <div class="col-sm-4">-->
-        <!--            <div class="page-header float-left">-->
-        <!--                <div class="page-title">-->
-        <!--                    <h1>Dashboard</h1>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--        <div class="col-sm-8">-->
-        <!--            <div class="page-header float-right">-->
-        <!--                <div class="page-title">-->
-        <!--                    <ol class="breadcrumb text-right">-->
-        <!--                        <li class="active">Dashboard</li>-->
-        <!--                    </ol>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-    </div>
-
-    <div class="content mt-3" id="abc">
-
-        <!--        Đoạn này là thông báo-->
-        <div class="col-sm-12">
-            <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                <span class="badge badge-pill badge-success">Success</span> Chào mừng huấn luyện viên, bạn đã đăng nhập thành công.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-
-        <!--        Modal create-->
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Create
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="add-trainer">
-                            <table>
-                                <tr>
-                                    <td>address:</td>
-                                    <td><input type="text" id="address" placeholder="address"></td>
-                                </tr>
-                                <tr>
-                                    <td>date_of_birth:</td>
-                                    <td><input type="text" id="date_of_birth" placeholder="date_of_birth"></td>
-                                </tr>
-                                <tr>
-                                    <td>name:</td>
-                                    <td><input type="text" id="name" placeholder="name"></td>
-                                </tr>
-                                <tr>
-                                    <td>app_user_id:</td>
-                                    <td><input type="text" id="app_user_id" placeholder="app_user_id"></td>
-                                </tr>
-                                <tr>
-                                    <td>income_id:</td>
-                                    <td><input type="text" id="income_id" placeholder="income_id"></td>
-                                </tr>
-                                <tr>
-                                    <td>cv:</td>
-                                    <td id="cv_file"><input type="text" id="a" placeholder="cv_file"></td>
-                                </tr>
-                                <td></td>
-                                <td><input id="add" type="submit" value="Add" onclick="addNewTrainer()"></td>
-                                </tr>
-                            </table>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                        <a class="nav-link" href="#" onclick="logout()" id="logout"><i class="fa fa-power-off" onclick="logout()"></i> Logout</a>                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="content mt-3">
-            <div class="animated fadeIn">
-                <div class="row">
-
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Data Table</strong>
-                            </div>
-                            <div class="card-body">
-                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Tên</th>
-                                        <th>Năm sinh</th>
-                                        <th>Quê quán</th>
-                                        <th>Vị trí chơi</th>
-                                        <th>Phong độ</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div><!-- .animated -->
         </div>
 
 
-    </div> <!-- .content -->
+
+</header><!-- /header -->
+<!-- Header-->
+
+
+<!--        Nội dung ở đây trống-->
+
+
+
+
+
+
 </div><!-- /#right-panel -->
 
 <!-- Right Panel -->
@@ -370,9 +234,8 @@
 <script src="../vendors/popper.js/dist/umd/popper.min.js"></script>
 <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../assets/js/main.js"></script>
-<script src="trainer-page-show-list-trainer.js"></script>
 <script src="admin-page.js"></script>
-<script src="admin-page-showListPlayer.js"></script>
+<script src="../player/logout.js"></script>
 
 <script src="../vendors/chart.js/dist/Chart.bundle.min.js"></script>
 <script src="../assets/js/dashboard.js"></script>
@@ -381,17 +244,6 @@
 <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
 <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
 
-<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="../vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="../vendors/jszip/dist/jszip.min.js"></script>
-<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="../vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-<script src="../assets/js/init-scripts/data-table/datatables-init.js"></script>
 <script>
     (function($) {
         "use strict";

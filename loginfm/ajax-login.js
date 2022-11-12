@@ -8,25 +8,30 @@ console.log(currentUser)
 
 function checkLogin() {
     if (currentUser === null) {
-        $('#dropdownMenuButton1').hide();
-        $('#profile').hide();
+        // $('#dropdownMenuButton1').hide();
+        // $('#profile').hide();
         console.log("loi")
+      // swal("something was wrong")
     }
     else {
         document.getElementById("name").innerHTML = currentUser.username;
-        $('#dropdownMenuButton').hide();
+        // $('#dropdownMenuButton').hide();
+        // setTimeout(()=>{swal("Hello world!");},10000);
+        // setTimeout(()=>{login();},20000);
+        // setTimeout(function() {login()}, 3000);
+        login()
     }
-    login()
+
 }
 
 checkLogin();
 
-function logout() {
-    // localStorage.clear();
-    localStorage.removeItem("token");
-    localStorage.removeItem("currentUser");
-    window.location.href = "page-login.html";
-}
+// function logout() {
+//     // localStorage.clear();
+//     localStorage.removeItem("token");
+//     localStorage.removeItem("currentUser");
+//     window.location.href = "page-login.html";
+// }
 // $('#logout').click(function () {
 //     localStorage.clear();
 //     location.href="/page-login.html";
@@ -57,9 +62,19 @@ function login() {
         data: JSON.stringify(data),
         success: function (data) {
             if (data === undefined) {
-                document.getElementById("error_login").innerHTML = "Tài khoản hoặc mật khẩu không đúng !"
+                // document.getElementById("error_login").innerHTML = "Tài khoản hoặc mật khẩu không đúng !"
+                swal({
+                    title: "Oops...",
+                    text: "Bạn nhập sai mất rồi!",
+                    icon: "error",
+                });
                 return false;
             } else {
+                swal({
+                    title: "Good job!",
+                    text: "You clicked the button!",
+                    icon: "success",
+                });
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("currentUser", JSON.stringify(data));
                 // window.location.href = "home.html"
