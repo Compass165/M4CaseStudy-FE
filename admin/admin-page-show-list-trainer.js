@@ -1,4 +1,4 @@
-// let token = localStorage.getItem("token");
+let token = localStorage.getItem("token");
 
 $(document).ready(function() {
     let totalPages = 1;
