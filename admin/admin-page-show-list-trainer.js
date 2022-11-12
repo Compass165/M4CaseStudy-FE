@@ -253,6 +253,7 @@ $(document).on("click", 'div.modal-content div.modal-footer button.btn.btn-prima
 
 function editById(id) {
     //lay du lieu
+<<<<<<< HEAD
     let address = $('#edit-address').val();
     let cv_file = $('#edit-file').val();
     let date_of_birth = $('#edit-dob').val();
@@ -261,6 +262,16 @@ function editById(id) {
         address: address,
         cv_file: cv_file,
         date_of_birth: date_of_birth,
+=======
+    let address = $('#edit-address-val').val();
+    let cv_file = $('#edit-file-val').val();
+    let date_of_birth = $('#edit-dob-val').val();
+    let name = $('#edit-name-val').val();
+    let object = {
+        address: address,
+        cvFile: cv_file,
+        dateOfBirth: date_of_birth,
+>>>>>>> 54a868630c7d6b98690ba5a32c1ed99df674f9ee
         name: name,
     };
     // goi ajax
@@ -269,13 +280,21 @@ function editById(id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+<<<<<<< HEAD
         type: "PUT",
+=======
+        type: "POST",
+>>>>>>> 54a868630c7d6b98690ba5a32c1ed99df674f9ee
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         data: JSON.stringify(object),
         //tên API
+<<<<<<< HEAD
         url: "http://localhost:8080/trainer/" + id,
+=======
+        url: "http://localhost:8080/trainer",
+>>>>>>> 54a868630c7d6b98690ba5a32c1ed99df674f9ee
         //xử lý khi thành công
         success: function (){
             showListTrainer(0, 10, '');
