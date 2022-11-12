@@ -1,13 +1,18 @@
+// let token = localStorage.getItem("token");
+
 $(document).ready(function() {
 let totalPages = 1;
-function showListTrainer(startPage, nameSearch) {
+function showListTrainer(startPage, size, nameSearch) {
     $.ajax({
         type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
         //tên API
         url: "http://localhost:8080/trainer/page",
         data: {
             page: startPage,
-            size: 10,
+            size: size,
             name: nameSearch
         },
         //xử lý khi thành công
@@ -18,13 +23,12 @@ function showListTrainer(startPage, nameSearch) {
             $.each(response.content, (id, trainer) => {
                 let noteRow = '<tr>' +
                     '<td>' + trainer.name + '</td>' +
-                    '<td>' + trainer.dateOfBirth + '</td>' +
-                    '<td>' + trainer.dateOfBirth + '</td>' +
+                    '<td>' + trainer.dateOfBirth.slice(0,10) + '</td>' +
                     '<td>' + trainer.address + '</td>' +
                     '</tr>';
                 $('#bootstrap-data-table-export tbody').append(noteRow);
             });
-            let abc = 'Hiển thị từ ' + (response.size*response.pageable.pageNumber+1) + ' tới ' + (response.size*response.pageable.pageNumber+10) + ' trong ' + response.totalElements + ' HLV';
+            let abc = 'Hiển thị từ ' + ((response.size*response.pageable.pageNumber)+1) + ' tới ' + ((response.size*response.pageable.pageNumber)+response.size) + ' trong ' + response.totalElements + ' HLV';
             $('#bootstrap-data-table-export_info').append(abc);
 
             // if ($('ul.pagination li').length - 2 != response.totalPages) {
@@ -96,11 +100,16 @@ function buildPagination(response) {
     $("ul.pagination").append(pagingLink);
 }
 
-$(document).on("keyup", 'div.dataTables_filter label input.form-control.form-control-sm', function() {
+// Hứng sự kiện search
+$(document).on("change", 'div.dataTables_filter label input.form-control.form-control-sm', function() {
     let nameSearch = $(this).val();
-    showListTrainer(0, nameSearch);
-    // //chặn sự kiện mặc định của thẻ
-    // event.preventDefault();
+    showListTrainer(0, 10, nameSearch);
+});
+
+// Hứng sự kiện size page
+$(document).on("change", 'div.dataTables_length label select.custom-select.custom-select-sm.form-control.form-control-sm', function() {
+    let size = $(this).val();
+    showListTrainer(0, size, '');
 });
 
 $(document).on("click", "ul.pagination li a", function() {
@@ -111,12 +120,12 @@ $(document).on("click", "ul.pagination li a", function() {
     // click on the NEXT tag
     if(val.toUpperCase() === "« FIRST") {
         let currentActive = $("li.active");
-        showListTrainer(0);
+        showListTrainer(0, 10, '');
         $("li.active").removeClass("active");
         // add .active to next-pagination li
         currentActive.next().addClass("active");
     } else if(val.toUpperCase() === "LAST »") {
-        showListTrainer(totalPages - 1);
+        showListTrainer(totalPages - 1, 10, '');
         $("li.active").removeClass("active");
         // add .active to next-pagination li
         currentActive.next().addClass("active");
@@ -125,7 +134,7 @@ $(document).on("click", "ul.pagination li a", function() {
         if(activeValue < totalPages){
             let currentActive = $("li.active");
             startPage = activeValue;
-            showListTrainer(startPage);
+            showListTrainer(startPage, 10, '');
             // remove .active class for the old li tag
             $("li.active").removeClass("active");
             // add .active to next-pagination li
@@ -136,7 +145,7 @@ $(document).on("click", "ul.pagination li a", function() {
         if(activeValue > 1) {
             // get the previous page
             startPage = activeValue - 2;
-            showListTrainer(startPage);
+            showListTrainer(startPage, 10, '');
             let currentActive = $("li.active");
             currentActive.removeClass("active");
             // add .active to previous-pagination li
@@ -144,7 +153,7 @@ $(document).on("click", "ul.pagination li a", function() {
         }
     } else {
         startPage = parseInt(val - 1);
-        showListTrainer(startPage);
+        showListTrainer(startPage, 10, '');
         // add focus to the li tag
         $("li.active").removeClass("active");
         $(this).parent().addClass("active");
@@ -154,43 +163,6 @@ $(document).on("click", "ul.pagination li a", function() {
 
 (function(){
     // get first-page at initial time
-    showListTrainer(0, '');
+    showListTrainer(0, 10, '');
 })();
 });
-
-
-function addNewTrainer() {
-    //lay du lieu
-    let address = $('#address').val();
-    let cv_file = $('#cv_file').val();
-    let date_of_birth = $('#date_of_birth').val();
-    let name = $('#name').val();
-    let app_user_id = $('#app_user_id').val();
-    let income_id = $('#income_id').val();
-    let newTrainer = {
-        address: address,
-        cv_file: cv_file,
-        date_of_birth: date_of_birth,
-        name: name,
-        app_user_id: app_user_id,
-        income_id:income_id
-    };
-    // goi ajax
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "POST",
-        data: JSON.stringify(newTrainer),
-        //tên API
-        url: "http://localhost:8080/trainer",
-        //xử lý khi thành công
-        success: function (){
-            showListTrainer();
-        }
-
-    });
-    //chặn sự kiện mặc định của thẻ
-    event.preventDefault();
-}

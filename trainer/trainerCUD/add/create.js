@@ -27,8 +27,9 @@ function addNewTrainer() {
         //tên API
         url: "http://localhost:8080/trainer",
         //xử lý khi thành công
-        success: successhandle;
-
+        success: function () {
+            showListTrainer(0);
+        }
     });
     //chặn sự kiện mặc định của thẻ
     event.preventDefault();

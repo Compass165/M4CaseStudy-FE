@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="trainer-page-show-list-trainer-income.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>-->
+</head>
+<body>
+<script>
+    let ob=localStorage.getItem("ob");
+    let token="";
+    console.log(ob);
+    if(ob==null){
+        window.location.href="page-login.html"
+    }
+    else {
+        let object = JSON.parse(ob);
+        token=object.accessToken;
+
+    }
+         $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/trainer",
+        success: function (data) {
+            console.log(data);
+                }
+            })
+</script>
+</body>
+</html>
