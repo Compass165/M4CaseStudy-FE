@@ -22,7 +22,9 @@ function removeById(id){
         url:'http://localhost:8080/trainer/'+trainerId,
         success: function (data){
             id.parent().parent().remove();
+            showListTrainer();
         }
     });
     event.preventDefault();
 }
+

@@ -1,8 +1,8 @@
 function getTrainer(trainer){
     return  <td><a class="updateTrainer" onclick="updeteById($(this))" href="${trainer.id}">delete</a></td>
 }
-function updateTrainer(id){
-   let trainerId=id.attr("href");
+function updateTrainer(id) {
+    let trainerId = id.attr("href");
     let address = $('#address').val();
     let cv_file = $('#cv_file').val();
     let date_of_birth = $('#date_of_birth').val();
@@ -15,7 +15,7 @@ function updateTrainer(id){
         date_of_birth: date_of_birth,
         name: name,
         app_user_id: app_user_id,
-        income_id:income_id
+        income_id: income_id
     };
     // goi ajax
     $.ajax({
@@ -24,15 +24,20 @@ function updateTrainer(id){
             'Content-Type': 'application/json'
         },
         type: "PUT",
-        // data: JSON.stringify(newTrainer),
+        data: JSON.stringify(newTrainer),
         //tên API
-        url: 'http://localhost:8080/trainer/${id}'+trainerId,
-        success:function (data){
-            id.parent().parent().put();
-        }
+        url: 'http://localhost:8080/trainer/' + trainerId,
+        // success:function (data){
+        //     id.parent().parent().put();
         //xử lý khi thành công
-        success:successHandle();
-
+        success: function () {
+            showListTrainer(0);
+        }
     });
     //chặn sự kiện mặc định của thẻ
     event.preventDefault();
+
+}
+function up(){
+   return  window.location.href="../trainerCUD/update/update.html";
+}
