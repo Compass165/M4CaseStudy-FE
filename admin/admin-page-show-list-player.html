@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Admin Page</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -336,6 +337,18 @@
                                 <div class="col-12 col-md-9" id="edit-password"></div>
                             </div>
                             <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-height" class=" form-control-label">Chiều cao</label></div>
+                                <div class="col-12 col-md-9" id="edit-height"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-weight" class=" form-control-label">Cân nặng</label></div>
+                                <div class="col-12 col-md-9" id="edit-weight"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-position" class=" form-control-label">Vị trí</label></div>
+                                <div class="col-12 col-md-9" id="edit-position"></div>
+                            </div>
+                            <div class="row form-group">
                                 <div class="col col-md-3"><label for="edit-file" class=" form-control-label">File hồ sơ</label></div>
                                 <div class="col-12 col-md-9" id="edit-file"><input type="file" id="edit-file-val" name="file-input" class="form-control-file"></div>
                             </div>
@@ -351,6 +364,13 @@
     </div>
 
 </div><!-- /#right-panel -->
+
+<select id="edit-select-val" class="form-control">
+    <option value="1">Tiền đạo</option>
+    <option value="2">Tiền vệ</option>
+    <option value="3">Hậu vệ</option>
+    <option value="4">Thủ môn</option>
+</select>
 
 <!-- Right Panel -->
 
@@ -398,6 +418,19 @@
             normalizeFunction: 'polynomial'
         });
     })(jQuery);
+</script>
+<script>
+    $(document).ready(function(){
+        let positionId;
+        let positionName;
+        $("select#edit-select-val.form-control").change(function(){
+            positionId = $(this).children("option:selected").val();
+            positionName = $(this).children("option:selected").text();
+            console.log(positionId);
+            console.log(positionName);
+            alert("You have selected the country - " + positionId + positionName);
+        });
+    });
 </script>
 
 </body>
