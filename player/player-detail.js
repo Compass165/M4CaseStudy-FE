@@ -1,20 +1,21 @@
 let token = localStorage.getItem("token");
 let id = JSON.parse(localStorage.getItem("currentUser")).id;
 showPlayer();
+
 function showPlayer() {
     $.ajax({
         headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json'
         },
         beforeSend: function (xhr) {
-            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
         },
-        type: "get", url: "http://localhost:8080/player/find-player-by-id/"+ id,
+        type: "get", url: "http://localhost:8080/player/find-player-by-id/" + id,
         success: function (data) {
             let name = `<h2>` + data.name + `</h2>`
             $('#player-name').append(name);
 
-            let dob = `<span>` + data.dateOfBirth + `</span>`
+            let dob = `<span>` + data.dateOfBirth.slice(0,10) + `</span>`
             $('#dob').append(dob);
 
             let address = `<span>` + data.address + `</span>`
@@ -26,10 +27,10 @@ function showPlayer() {
             let password = `<span>` + data.appUser.password + `</span>`
             $('#show_hide_password').append(password);
 
-            let height = `<span>` + data.height +" cm"+ `</span>`
+            let height = `<span>` + data.height + " cm" + `</span>`
             $('#height').append(height);
 
-            let weight = `<span>` + data.weight + " kg"+`</span>`
+            let weight = `<span>` + data.weight + " kg" + `</span>`
             $('#weight').append(weight);
 
             let position = `<span>` + data.position.name + `</span>`
@@ -43,23 +44,29 @@ function showPlayer() {
 
             let profile = `<span>` + data.profile + `</span>`
             $('#profile').append(profile);
+
+            let salary = `<span>` + data.playerIncome.income + "$" +`</span>`
+            $('#salary').append(salary);
+
+            let img = '<img class="user-avatar rounded-circle" src="file://E:/storage/image/' + data.image + ' alt="User Avatar">'
+            $('#insertImage').append(img);
         }
 
     })
     event.preventDefault();
 }
 
-$(document).ready(function() {
-    $("#show_hide_password a").on('click', function(event) {
+$(document).ready(function () {
+    $("#show_hide_password a").on('click', function (event) {
         event.preventDefault();
-        if($('#show_hide_password input').attr("type") == "password"){
+        if ($('#show_hide_password input').attr("type") == "password") {
             $('#show_hide_password input').attr('type', 'password');
-            $('#show_hide_password i').addClass( "fa-eye-slash" );
-            $('#show_hide_password i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password input').attr("type") == "password"){
+            $('#show_hide_password i').addClass("fa-eye-slash");
+            $('#show_hide_password i').removeClass("fa-eye");
+        } else if ($('#show_hide_password input').attr("type") == "password") {
             $('#show_hide_password input').attr('type', 'text');
-            $('#show_hide_password i').removeClass( "fa-eye-slash" );
-            $('#show_hide_password i').addClass( "fa-eye" );
+            $('#show_hide_password i').removeClass("fa-eye-slash");
+            $('#show_hide_password i').addClass("fa-eye");
         }
     });
 });
