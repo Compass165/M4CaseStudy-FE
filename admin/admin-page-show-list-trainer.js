@@ -253,14 +253,14 @@ $(document).on("click", 'div.modal-content div.modal-footer button.btn.btn-prima
 
 function editById(id) {
     //lay du lieu
-    let address = $('#edit-address').val();
-    let cv_file = $('#edit-file').val();
-    let date_of_birth = $('#edit-dob').val();
-    let name = $('#edit-name').val();
+    let address = $('#edit-address-val').val();
+    let cv_file = $('#edit-file-val').val();
+    let date_of_birth = $('#edit-dob-val').val();
+    let name = $('#edit-name-val').val();
     let object = {
         address: address,
-        cv_file: cv_file,
-        date_of_birth: date_of_birth,
+        cvFile: cv_file,
+        dateOfBirth: date_of_birth,
         name: name,
     };
     // goi ajax
@@ -269,13 +269,13 @@ function editById(id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        type: "PUT",
+        type: "POST",
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         data: JSON.stringify(object),
         //tên API
-        url: "http://localhost:8080/trainer/" + id,
+        url: "http://localhost:8080/trainer",
         //xử lý khi thành công
         success: function (){
             showListTrainer(0, 10, '');
