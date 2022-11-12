@@ -253,8 +253,21 @@ $(document).on("click", 'div.modal-content div.modal-footer button.btn.btn-prima
 
 function editById(id) {
     //lay du lieu
+<<<<<<< HEAD
     let name = $('#edit-name-val').val();
     let date_of_birth = $('#edit-dob-val').val();
+=======
+<<<<<<< HEAD
+    let address = $('#edit-address').val();
+    let cv_file = $('#edit-file').val();
+    let date_of_birth = $('#edit-dob').val();
+    let name = $('#edit-name').val();
+    let object = {
+        address: address,
+        cv_file: cv_file,
+        date_of_birth: date_of_birth,
+=======
+>>>>>>> 02101f9209c24dceecbb3ab27c3a220473c9ee48
     let address = $('#edit-address-val').val();
     let password = $('#edit-password-val').val();
     let cv_file = $('#edit-file-val').val();
@@ -264,12 +277,18 @@ function editById(id) {
         address: address,
         income: objChoose.income,
         cvFile: cv_file,
+<<<<<<< HEAD
         appUser: {
             id: objChoose.appUser.id,
             name: objChoose.appUser.name,
             password: password,
             roleSet: objChoose.roleSet
         },
+=======
+        dateOfBirth: date_of_birth,
+>>>>>>> 54a868630c7d6b98690ba5a32c1ed99df674f9ee
+        name: name,
+>>>>>>> 02101f9209c24dceecbb3ab27c3a220473c9ee48
     };
     // goi ajax
     $.ajax({
@@ -277,13 +296,29 @@ function editById(id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+<<<<<<< HEAD
         type: "PUT",
+=======
+<<<<<<< HEAD
+        type: "PUT",
+=======
+        type: "POST",
+>>>>>>> 54a868630c7d6b98690ba5a32c1ed99df674f9ee
+>>>>>>> 02101f9209c24dceecbb3ab27c3a220473c9ee48
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         data: JSON.stringify(object),
         //tên API
+<<<<<<< HEAD
         url: "http://localhost:8080/trainer/edit/" + id,
+=======
+<<<<<<< HEAD
+        url: "http://localhost:8080/trainer/" + id,
+=======
+        url: "http://localhost:8080/trainer",
+>>>>>>> 54a868630c7d6b98690ba5a32c1ed99df674f9ee
+>>>>>>> 02101f9209c24dceecbb3ab27c3a220473c9ee48
         //xử lý khi thành công
         success: function (){
             showListTrainer(0, 10, '');
