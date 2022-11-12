@@ -234,8 +234,8 @@
                                     <th>Tên</th>
                                     <th>Năm sinh</th>
                                     <th>Địa chỉ</th>
-                                    <th>E</th>
-                                    <th>E</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -247,6 +247,107 @@
             </div>
         </div><!-- .animated -->
     </div> <!-- .content -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-trainer">
+                        <table>
+                            <tr>
+                                <td>address:</td>
+                                <td><input type="text" id="address" placeholder="address"></td>
+                            </tr>
+                            <tr>
+                                <td>date_of_birth:</td>
+                                <td><input type="text" id="date_of_birth" placeholder="date_of_birth"></td>
+                            </tr>
+                            <tr>
+                                <td>name:</td>
+                                <td><input type="text" id="name" placeholder="name"></td>
+                            </tr>
+                            <tr>
+                                <td>app_user_id:</td>
+                                <td><input type="text" id="app_user_id" placeholder="app_user_id"></td>
+                            </tr>
+                            <tr>
+                                <td>income_id:</td>
+                                <td><input type="text" id="income_id" placeholder="income_id"></td>
+                            </tr>
+                            <tr>
+                                <td>cv:</td>
+                                <td id="cv_file"><input type="text" id="a" placeholder="cv_file"></td>
+                            </tr>
+                            <td></td>
+                            <td><input id="add" type="submit" value="Add" onclick="addNewTrainer()"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Sửa thông tin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body card-block">
+                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-name" class=" form-control-label">Tên</label></div>
+                                <div class="col-12 col-md-9" id="edit-name"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-dob" class=" form-control-label">Ngày sinh</label></div>
+                                <div class="col-12 col-md-9" id="edit-dob"><input type="date" id="edit-dob-val" class="form-control"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-address" class=" form-control-label">Địa chỉ</label></div>
+                                <div class="col-12 col-md-9" id="edit-address"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label class=" form-control-label">Tài khoản</label></div>
+                                <div class="col-12 col-md-9" id="edit-account"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-password" class=" form-control-label">Mật khẩu</label></div>
+                                <div class="col-12 col-md-9" id="edit-password"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-file" class=" form-control-label">File hồ sơ</label></div>
+                                <div class="col-12 col-md-9" id="edit-file"><input type="file" id="file-input-val" name="file-input" class="form-control-file"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div><!-- /#right-panel -->
 
 <!-- Right Panel -->
