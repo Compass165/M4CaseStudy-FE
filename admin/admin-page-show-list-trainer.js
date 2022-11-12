@@ -1,6 +1,6 @@
 let token = localStorage.getItem("token");
-
-$(document).ready(function() {
+let idShowdetail;
+showListTrainer(0, 10, '');
     let totalPages = 1;
     function showListTrainer(startPage, size, nameSearch) {
         $.ajax({
@@ -18,27 +18,25 @@ $(document).ready(function() {
             //xử lý khi thành công
             success: function (response) {
                 $('#bootstrap-data-table-export tbody').empty();
-                $('#bootstrap-data-table-export_info').empty();
                 // add table rows
                 $.each(response.content, (id, trainer) => {
                     let noteRow = '<tr>' +
                         '<td>' + trainer.name + '</td>' +
                         '<td>' + trainer.dateOfBirth.slice(0,10) + '</td>' +
                         '<td>' + trainer.address + '</td>' +
-                        '<td>Edit</td>' +
-                        '<td>Delete</td>' +
+                        '<td><button type="button" onclick="getDetail(' + trainer.id + ')" class="btn btn-success" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-magic"></i>&nbsp; Edit</button></td>' +
+                        '<td><button type="button" onclick="deleteById(' + trainer.id + ')" class="btn btn-danger"><i class="fa fa-rss"></i>&nbsp; Delete</button></td>' +
                         '</tr>';
                     $('#bootstrap-data-table-export tbody').append(noteRow);
                 });
                 let abc = 'Hiển thị từ ' + ((response.size*response.pageable.pageNumber)+1) + ' tới ' + ((response.size*response.pageable.pageNumber)+response.size) + ' trong ' + response.totalElements + ' HLV';
-                $('#bootstrap-data-table-export_info').append(abc);
+                $('#bootstrap-data-table-export_info').empty().append(abc);
 
                 // if ($('ul.pagination li').length - 2 != response.totalPages) {
                 //     // build pagination list at the first time loading
                 // $('ul.pagination').empty();
                 // buildPagination(response);
                 // }
-                // build pagination list at the first time loading.
                 $('ul.pagination').empty();
                 buildPagination(response);
             },
@@ -109,7 +107,7 @@ $(document).ready(function() {
     });
 
 // Hứng sự kiện size page
-    $(document).on("change", 'div.dataTables_length label select.custom-select.custom-select-sm.form-control.form-control-sm', function() {
+    $(document).on("mouseout", 'div.dataTables_length label select.custom-select.custom-select-sm.form-control.form-control-sm', function() {
         let size = $(this).val();
         showListTrainer(0, size, '');
     });
@@ -163,11 +161,6 @@ $(document).ready(function() {
         }
     });
 
-    (function(){
-        // get first-page at initial time
-        showListTrainer(0, 10, '');
-    })();
-});
 
 
 function addNewTrainer() {
@@ -206,18 +199,86 @@ function addNewTrainer() {
     event.preventDefault();
 }
 
-function deleteById(element){
-    //lay du lieu
-    let id = element.getAttribute("href");
+function deleteById(id){
     // goi ajax
     $.ajax({
         type: "DELETE",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
         //tên API
         url: "http://localhost:8080/trainer/" + id,
         //xử lý khi thành công
         success: function (data) {
             console.log("Xoa thanh cong ");
-            showListTrainer();
+            showListTrainer(0, 10, '');
+        }
+
+    });
+    //chặn sự kiện mặc định của thẻ
+    event.preventDefault();
+}
+
+function getDetail(getId) {
+    idShowdetail = getId;
+    $.ajax({
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        //tên API
+        url: "http://localhost:8080/trainer/" + getId,
+        //xử lý khi thành công
+        success: function (response) {
+            let placeholderName = '<input type="text" id="edit-name-val" placeholder="' + response.name + '" class="form-control">'
+            $('#edit-name').empty().append(placeholderName);
+            let placeholderAddress = '<input type="text" id="edit-address-val" placeholder="' + response.address + '" class="form-control">'
+            $('#edit-address').empty().append(placeholderAddress);
+            let placeholderAcc = '<p class="form-control-static">' + response.appUser.name + '</p>'
+            $('#edit-account').empty().append(placeholderAcc);
+            let placeholderPass = '<input type="text" id="edit-password-val" placeholder="' + response.appUser.password + '" class="form-control">'
+            $('#edit-password').empty().append(placeholderPass);
+        },
+        error : function(e) {
+            alert("ERROR: ", e);
+            console.log("ERROR: ", e);
+        }
+    });
+}
+
+// Hứng sự kiện edit
+$(document).on("click", 'div.modal-content div.modal-footer button.btn.btn-primary', function() {
+    editById(idShowdetail);
+});
+
+function editById(id) {
+    //lay du lieu
+    let address = $('#edit-address').val();
+    let cv_file = $('#edit-file').val();
+    let date_of_birth = $('#edit-dob').val();
+    let name = $('#edit-name').val();
+    let object = {
+        address: address,
+        cv_file: cv_file,
+        date_of_birth: date_of_birth,
+        name: name,
+    };
+    // goi ajax
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "PUT",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        data: JSON.stringify(object),
+        //tên API
+        url: "http://localhost:8080/trainer/" + id,
+        //xử lý khi thành công
+        success: function (){
+            showListTrainer(0, 10, '');
         }
 
     });
