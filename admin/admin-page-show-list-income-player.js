@@ -1,7 +1,6 @@
 let token = localStorage.getItem("token");
 let idChoose;
 let objChoose;
-let appUserChoose;
 showSalaryPlayer(0, 10, '');
 let totalPages = 1;
 function showSalaryPlayer(startPage, size, nameSearch) {
@@ -27,8 +26,8 @@ function showSalaryPlayer(startPage, size, nameSearch) {
                     '<td>' + player.name + '</td>' +
                     '<td>' + player.dateOfBirth.slice(0,10) + '</td>' +
                     '<td>$' + player.playerIncome.salary + '</td>' +
-                    '<td>$' + player.playerIncome.bonus + '</td>' +
-                    '<td>' + player.playerIncome.playTime + 'h</td>' +
+                    '<td>$' + player.playerIncome.playTime + '</td>' +
+                    '<td>' + player.playerIncome.bonus + 'h</td>' +
                     '<td>$' + ((player.playerIncome.bonus * player.playerIncome.playTime) + player.playerIncome.salary) + '</td>' +
                     '<td><button type="button" onclick="getDetail(' + player.id + ')" class="btn btn-success" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-magic"></i>&nbsp; Edit</button></td>' +
                     '</tr>';
@@ -168,21 +167,21 @@ $(document).on("click", "ul.pagination li a", function() {
 
 
 
-function addNewTrainer() {
+function addNewSalary() {
     //lay du lieu
-    let address = $('#address').val();
-    let cv_file = $('#cv_file').val();
-    let date_of_birth = $('#date_of_birth').val();
-    let name = $('#name').val();
-    let app_user_id = $('#app_user_id').val();
-    let income_id = $('#income_id').val();
-    let newTrainer = {
-        address: address,
-        cv_file: cv_file,
-        date_of_birth: date_of_birth,
-        name: name,
-        app_user_id: app_user_id,
-        income_id:income_id
+    let salary = $('#salary').val();
+    let playTime = $('#playTime').val();
+    let bonus = $('#bonus').val();
+    // let name = $('#name').val();
+    // let app_user_id = $('#app_user_id').val();
+    // let income_id = $('#income_id').val();
+    let newSalary = {
+        salary: salary,
+        playTime: playTime,
+        bonus: bonus,
+        // name: name,
+        // app_user_id: app_user_id,
+        // income_id:income_id
     };
     // goi ajax
     $.ajax({
@@ -191,9 +190,9 @@ function addNewTrainer() {
             'Content-Type': 'application/json'
         },
         type: "POST",
-        data: JSON.stringify(newTrainer),
+        data: JSON.stringify(newSalary),
         //tên API
-        url: "http://localhost:8080/trainer",
+        url: "http://localhost:8080/player/list-player",
         //xử lý khi thành công
         success: function (){
             showLister();
@@ -236,15 +235,16 @@ function getDetail(id) {
         //xử lý khi thành công
         success: function (response) {
             objChoose = response;
-            appUserChoose = response.appUser;
-            let placeholderName = '<input type="text" id="edit-name-val" value="' + response.name + '" class="form-control">'
-            $('#edit-name').empty().append(placeholderName);
-            let placeholderAddress = '<input type="text" id="edit-address-val" value="' + response.address + '" class="form-control">'
-            $('#edit-address').empty().append(placeholderAddress);
-            let placeholderAcc = '<p class="form-control-static">' + appUserChoose.name + '</p>'
-            $('#edit-account').empty().append(placeholderAcc);
-            let placeholderPass = '<input type="text" id="edit-password-val" value="' + appUserChoose.password + '" class="form-control">'
-            $('#edit-password').empty().append(placeholderPass);
+            // appUserChoose = response.appUser;
+            let placeholderSalary = '<input type="number" id="edit-salary-val" value="' + response.playIncome.salary + '" class="form-control">'
+            $('#edit-salary').empty().append(placeholderSalary);
+            let placeholderplayTime = '<input type="number" id="edit-playTime-val" value="' + response.playIncome.playTime + '" class="form-control">'
+            $('#edit-playTime').empty().append(placeholderplayTime);
+            let placeholderBonus = '<input type="number" id="edit-bonus-val" value="' + response.playIncome.bonus + '" class="form-control">'
+            $('#edit-password').empty().append(placeholderBonus);
+            let placeholderIncome = '<p class="form-control-static">' + ((response.playIncome.playTime * response.playIncome.bonus) + response.playIncome.salary) + '</p>'
+            $('#edit-account').empty().append(placeholderIncome);
+
         },
         error : function(e) {
             alert("ERROR: ", e);
@@ -260,34 +260,20 @@ $(document).on("click", 'div.modal-content div.modal-footer button.btn.btn-prima
 
 function editById(id) {
     //lay du lieu
-    let name = $('#edit-name-val').val();
-    let date_of_birth = $('#edit-dob-val').val();
-    let address = $('#edit-address-val').val();
-    let password = $('#edit-password-val').val();
-    let height = $('#edit-height-val').val();
-    let weight = $('#edit-weight-val').val();
-    let position = $('#edit-position-val').val();
-    let performance = $('#edit-performance-val').val();
-    let cv_file = $('#edit-file-val').val();
-    let appUser = {
-        id: appUserChoose.id,
-        name: appUserChoose.name,
-        password: password,
-        roleSet: appUserChoose.roleSet
+    let salary = $('#edit-salary-val').val();
+    let playTime = $('#edit-playTime-val').val();
+    let bonus = $('#edit-bonus-val').val();
+    // let password = $('#edit-password-val').val();
+    // let height = $('#edit-height-val').val();
+    // let weight = $('#edit-weight-val').val();
+    // let position = $('#edit-position-val').val();
+    // let performance = $('#edit-performance-val').val();
+    // let cv_file = $('#edit-file-val').val();
+    let salaryPlayer = {
+        salary: salary,
+        playTime: playTime,
+        bonus: bonus,
     }
-    let object = {
-        name: name,
-        dateOfBirth: date_of_birth,
-        address: address,
-        height: height,
-        weight: weight,
-        appUser: appUser,
-        position: position,
-        // performance: {id:,}
-
-        income: objChoose.income,
-        cvFile: cv_file
-    };
     // goi ajax
     $.ajax({
         headers: {
@@ -298,7 +284,7 @@ function editById(id) {
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
-        data: JSON.stringify(object),
+        data: JSON.stringify(salaryPlayer),
         //tên API
         url: "http://localhost:8080/player/edit/" + id,
         //xử lý khi thành công
