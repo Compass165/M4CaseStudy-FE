@@ -1,13 +1,14 @@
 $(document).ready(function() {
 let totalPages = 1;
-function showListTrainer(startPage) {
+function showListTrainer(startPage, nameSearch) {
     $.ajax({
         type: "GET",
         //tên API
         url: "http://localhost:8080/trainer/page",
         data: {
             page: startPage,
-            size: 10
+            size: 10,
+            name: nameSearch
         },
         //xử lý khi thành công
         success: function (response) {
@@ -95,6 +96,13 @@ function buildPagination(response) {
     $("ul.pagination").append(pagingLink);
 }
 
+$(document).on("keyup", 'div.dataTables_filter label input.form-control.form-control-sm', function() {
+    let nameSearch = $(this).val();
+    showListTrainer(0, nameSearch);
+    // //chặn sự kiện mặc định của thẻ
+    // event.preventDefault();
+});
+
 $(document).on("click", "ul.pagination li a", function() {
     var data = $(this).attr('data');
     let val = $(this).text();
@@ -146,7 +154,7 @@ $(document).on("click", "ul.pagination li a", function() {
 
 (function(){
     // get first-page at initial time
-    showListTrainer(0);
+    showListTrainer(0, '');
 })();
 });
 
