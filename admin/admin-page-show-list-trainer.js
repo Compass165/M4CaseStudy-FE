@@ -1,5 +1,5 @@
 let token = localStorage.getItem("token");
-let idShowdetail;
+let objChoose;
 showListTrainer(0, 10, '');
     let totalPages = 1;
     function showListTrainer(startPage, size, nameSearch) {
@@ -24,7 +24,7 @@ showListTrainer(0, 10, '');
                         '<td>' + trainer.name + '</td>' +
                         '<td>' + trainer.dateOfBirth.slice(0,10) + '</td>' +
                         '<td>' + trainer.address + '</td>' +
-                        '<td><button type="button" onclick="getDetail(' + trainer.id + ')" class="btn btn-success" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-magic"></i>&nbsp; Edit</button></td>' +
+                        '<td><button type="button" onclick="getDetail(' + response + ')" class="btn btn-success" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-magic"></i>&nbsp; Edit</button></td>' +
                         '<td><button type="button" onclick="deleteById(' + trainer.id + ')" class="btn btn-danger"><i class="fa fa-rss"></i>&nbsp; Delete</button></td>' +
                         '</tr>';
                     $('#bootstrap-data-table-export tbody').append(noteRow);
@@ -219,24 +219,24 @@ function deleteById(id){
     event.preventDefault();
 }
 
-function getDetail(getId) {
-    idShowdetail = getId;
+function getDetail(dataObj) {
+    objChoose = dataObj;
     $.ajax({
         type: "GET",
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
-        url: "http://localhost:8080/trainer/" + getId,
+        url: "http://localhost:8080/trainer/" + dataObj.id,
         //xử lý khi thành công
         success: function (response) {
-            let placeholderName = '<input type="text" id="edit-name-val" placeholder="' + response.name + '" class="form-control">'
+            let placeholderName = '<input type="text" id="edit-name-val" value="' + response.name + '" class="form-control">'
             $('#edit-name').empty().append(placeholderName);
-            let placeholderAddress = '<input type="text" id="edit-address-val" placeholder="' + response.address + '" class="form-control">'
+            let placeholderAddress = '<input type="text" id="edit-address-val" value="' + response.address + '" class="form-control">'
             $('#edit-address').empty().append(placeholderAddress);
             let placeholderAcc = '<p class="form-control-static">' + response.appUser.name + '</p>'
             $('#edit-account').empty().append(placeholderAcc);
-            let placeholderPass = '<input type="text" id="edit-password-val" placeholder="' + response.appUser.password + '" class="form-control">'
+            let placeholderPass = '<input type="text" id="edit-password-val" value="' + response.appUser.password + '" class="form-control">'
             $('#edit-password').empty().append(placeholderPass);
         },
         error : function(e) {
@@ -248,20 +248,28 @@ function getDetail(getId) {
 
 // Hứng sự kiện edit
 $(document).on("click", 'div.modal-content div.modal-footer button.btn.btn-primary', function() {
-    editById(idShowdetail);
+    editById(objChoose.id);
 });
 
 function editById(id) {
     //lay du lieu
-    let address = $('#edit-address-val').val();
-    let cv_file = $('#edit-file-val').val();
-    let date_of_birth = $('#edit-dob-val').val();
     let name = $('#edit-name-val').val();
+    let date_of_birth = $('#edit-dob-val').val();
+    let address = $('#edit-address-val').val();
+    let password = $('#edit-password-val').val();
+    let cv_file = $('#edit-file-val').val();
     let object = {
-        address: address,
-        cvFile: cv_file,
-        dateOfBirth: date_of_birth,
         name: name,
+        dateOfBirth: date_of_birth,
+        address: address,
+        income: objChoose.income,
+        cvFile: cv_file,
+        appUser: {
+            id: objChoose.appUser.id,
+            name: objChoose.appUser.name,
+            password: password,
+            roleSet: objChoose.roleSet
+        },
     };
     // goi ajax
     $.ajax({
@@ -269,13 +277,13 @@ function editById(id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        type: "POST",
+        type: "PUT",
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         data: JSON.stringify(object),
         //tên API
-        url: "http://localhost:8080/trainer",
+        url: "http://localhost:8080/trainer/edit/" + id,
         //xử lý khi thành công
         success: function (){
             showListTrainer(0, 10, '');
