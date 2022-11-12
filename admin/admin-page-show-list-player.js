@@ -245,6 +245,18 @@ function getDetail(id) {
             $('#edit-account').empty().append(placeholderAcc);
             let placeholderPass = '<input type="text" id="edit-password-val" value="' + appUserChoose.password + '" class="form-control">'
             $('#edit-password').empty().append(placeholderPass);
+            let placeholderHeight = '<input type="text" id="edit-height-val" value="' + response.height + '" class="form-control">'
+            $('#edit-height').empty().append(placeholderHeight);
+            let placeholderWeight = '<input type="text" id="edit-weight-val" value="' + response.weight + '" class="form-control">'
+            $('#edit-weight').empty().append(placeholderWeight);
+            let placeholderPosition = '<select id="edit-select-val" class="form-control">' +
+                '<option value="' + response.position.id + '">' + response.position.name + '</option>' +
+                '<option value="1">Tiền đạo</option>' +
+                '<option value="2">Tiền vệ</option>' +
+                '<option value="3">Hậu vệ</option>' +
+                '<option value="4">Thủ môn</option>' +
+                '</select>'
+            $('#edit-position').empty().append(placeholderPosition);
         },
         error : function(e) {
             alert("ERROR: ", e);
@@ -266,8 +278,10 @@ function editById(id) {
     let password = $('#edit-password-val').val();
     let height = $('#edit-height-val').val();
     let weight = $('#edit-weight-val').val();
-    let position = $('#edit-position-val').val();
-    let performance = $('#edit-performance-val').val();
+    let positionId;
+    let positionName;
+
+    // let performance = $('#edit-performance-val').val();
     let cv_file = $('#edit-file-val').val();
     let appUser = {
         id: appUserChoose.id,
@@ -282,8 +296,10 @@ function editById(id) {
         height: height,
         weight: weight,
         appUser: appUser,
-        position: position,
-        // performance: {id:,}
+        position: {
+            id: positionId,
+            name: positionName
+        },
 
         income: objChoose.income,
         cvFile: cv_file
