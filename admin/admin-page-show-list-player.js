@@ -2,16 +2,16 @@ let token = localStorage.getItem("token");
 let idChoose;
 let objChoose;
 let appUserChoose;
-showListTrainer(0, 10, '');
+showListPlayer(0, 10, '');
 let totalPages = 1;
-function showListTrainer(startPage, size, nameSearch) {
+function showListPlayer(startPage, size, nameSearch) {
     $.ajax({
         type: "GET",
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
-        url: "http://localhost:8080/trainer/page",
+        url: "http://localhost:8080/player/search-page-player/name",
         data: {
             page: startPage,
             size: size,
@@ -22,17 +22,19 @@ function showListTrainer(startPage, size, nameSearch) {
             console.log(response);
             $('#bootstrap-data-table-export tbody').empty();
             // add table rows
-            $.each(response.content, (id, trainer) => {
+            $.each(response.content, (id, player) => {
                 let noteRow = '<tr>' +
-                    '<td>' + trainer.name + '</td>' +
-                    '<td>' + trainer.dateOfBirth.slice(0,10) + '</td>' +
-                    '<td>' + trainer.address + '</td>' +
-                    '<td><button type="button" onclick="getDetail(' + trainer.id + ')" class="btn btn-success" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-magic"></i>&nbsp; Edit</button></td>' +
-                    '<td><button type="button" onclick="deleteById(' + trainer.id + ')" class="btn btn-danger"><i class="fa fa-rss"></i>&nbsp; Delete</button></td>' +
+                    '<td>' + player.name + '</td>' +
+                    '<td>' + player.dateOfBirth.slice(0,10) + '</td>' +
+                    '<td>' + player.address + '</td>' +
+                    '<td>' + player.position.name + '</td>' +
+                    '<td>' + player.performance.ranking + '</td>' +
+                    '<td><button type="button" onclick="getDetail(' + player.id + ')" class="btn btn-success" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-magic"></i>&nbsp; Edit</button></td>' +
+                    '<td><button type="button" onclick="deleteById(' + player.id + ')" class="btn btn-danger"><i class="fa fa-rss"></i>&nbsp; Delete</button></td>' +
                     '</tr>';
                 $('#bootstrap-data-table-export tbody').append(noteRow);
             });
-            let abc = 'Hiển thị từ ' + ((response.size*response.pageable.pageNumber)+1) + ' tới ' + ((response.size*response.pageable.pageNumber)+response.size) + ' trong ' + response.totalElements + ' huấn luyện viên';
+            let abc = 'Hiển thị từ ' + ((response.size*response.pageable.pageNumber)+1) + ' tới ' + ((response.size*response.pageable.pageNumber)+response.size) + ' trong ' + response.totalElements + ' cầu thủ';
             $('#bootstrap-data-table-export_info').empty().append(abc);
 
             // if ($('ul.pagination li').length - 2 != response.totalPages) {
@@ -106,13 +108,13 @@ function buildPagination(response) {
 // Hứng sự kiện search
 $(document).on("change", 'div.dataTables_filter label input.form-control.form-control-sm', function() {
     let nameSearch = $(this).val();
-    showListTrainer(0, 10, nameSearch);
+    showListPlayer(0, 10, nameSearch);
 });
 
 // Hứng sự kiện size page
 $(document).on("mouseout", 'div.dataTables_length label select.custom-select.custom-select-sm.form-control.form-control-sm', function() {
     let size = $(this).val();
-    showListTrainer(0, size, '');
+    showListPlayer(0, size, '');
 });
 
 $(document).on("click", "ul.pagination li a", function() {
@@ -123,12 +125,12 @@ $(document).on("click", "ul.pagination li a", function() {
     // click on the NEXT tag
     if(val.toUpperCase() === "« FIRST") {
         let currentActive = $("li.active");
-        showListTrainer(0, 10, '');
+        showListPlayer(0, 10, '');
         $("li.active").removeClass("active");
         // add .active to next-pagination li
         currentActive.next().addClass("active");
     } else if(val.toUpperCase() === "LAST »") {
-        showListTrainer(totalPages - 1, 10, '');
+        showListPlayer(totalPages - 1, 10, '');
         $("li.active").removeClass("active");
         // add .active to next-pagination li
         currentActive.next().addClass("active");
@@ -137,7 +139,7 @@ $(document).on("click", "ul.pagination li a", function() {
         if(activeValue < totalPages){
             let currentActive = $("li.active");
             startPage = activeValue;
-            showListTrainer(startPage, 10, '');
+            showListPlayer(startPage, 10, '');
             // remove .active class for the old li tag
             $("li.active").removeClass("active");
             // add .active to next-pagination li
@@ -148,7 +150,7 @@ $(document).on("click", "ul.pagination li a", function() {
         if(activeValue > 1) {
             // get the previous page
             startPage = activeValue - 2;
-            showListTrainer(startPage, 10, '');
+            showListPlayer(startPage, 10, '');
             let currentActive = $("li.active");
             currentActive.removeClass("active");
             // add .active to previous-pagination li
@@ -156,7 +158,7 @@ $(document).on("click", "ul.pagination li a", function() {
         }
     } else {
         startPage = parseInt(val - 1);
-        showListTrainer(startPage, 10, '');
+        showListPlayer(startPage, 10, '');
         // add focus to the li tag
         $("li.active").removeClass("active");
         $(this).parent().addClass("active");
@@ -194,7 +196,7 @@ function addNewTrainer() {
         url: "http://localhost:8080/trainer",
         //xử lý khi thành công
         success: function (){
-            showListTrainer();
+            showLister();
         }
 
     });
@@ -210,11 +212,11 @@ function deleteById(id){
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
-        url: "http://localhost:8080/trainer/" + id,
+        url: "http://localhost:8080/player/" + id,
         //xử lý khi thành công
         success: function (data) {
             console.log("Xoa thanh cong ");
-            showListTrainer(0, 10, '');
+            showListPlayer(0, 10, '');
         }
 
     });
@@ -230,7 +232,7 @@ function getDetail(id) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
-        url: "http://localhost:8080/trainer/" + id,
+        url: "http://localhost:8080/player/find-player-by-id/" + id,
         //xử lý khi thành công
         success: function (response) {
             objChoose = response;
@@ -262,6 +264,10 @@ function editById(id) {
     let date_of_birth = $('#edit-dob-val').val();
     let address = $('#edit-address-val').val();
     let password = $('#edit-password-val').val();
+    let height = $('#edit-height-val').val();
+    let weight = $('#edit-weight-val').val();
+    let position = $('#edit-position-val').val();
+    let performance = $('#edit-performance-val').val();
     let cv_file = $('#edit-file-val').val();
     let appUser = {
         id: appUserChoose.id,
@@ -273,9 +279,14 @@ function editById(id) {
         name: name,
         dateOfBirth: date_of_birth,
         address: address,
-        income: objChoose.income,
-        cvFile: cv_file,
+        height: height,
+        weight: weight,
         appUser: appUser,
+        position: position,
+        // performance: {id:,}
+
+        income: objChoose.income,
+        cvFile: cv_file
     };
     // goi ajax
     $.ajax({
@@ -289,11 +300,11 @@ function editById(id) {
         },
         data: JSON.stringify(object),
         //tên API
-        url: "http://localhost:8080/trainer/edit/" + id,
+        url: "http://localhost:8080/player/edit/" + id,
         //xử lý khi thành công
         success: function (){
             console.log("win")
-            showListTrainer(0, 10, '');
+            showLister(0, 10, '');
         }
 
     });
