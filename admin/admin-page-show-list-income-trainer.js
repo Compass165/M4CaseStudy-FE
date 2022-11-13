@@ -229,8 +229,8 @@ function getDetail(id) {
             objChoose = response;
             let placeholderSalary = '<input type="number" id="edit-salary-val" value="' + response.income.salary + '" class="form-control">'
             $('#edit-salary').empty().append(placeholderSalary);
-            let placeholderplayTime = '<input type="number" id="edit-playTime-val" value="' + response.income.playTime + '" class="form-control">'
-            $('#edit-password').empty().append(placeholderBonus);
+            let placeholderplayTime = '<input type="number" id="edit-bonus-val" value="' + response.income.bonus + '" class="form-control">'
+            $('#edit-bonus').empty().append(placeholderplayTime);
             let placeholderIncome = '<p class="form-control-static">' + ((response.income.playTime * response.income.bonus) + response.income.salary) + '</p>'
             $('#edit-account').empty().append(placeholderIncome);
         },
@@ -250,10 +250,25 @@ function editById(id) {
     //lay du lieu
     let salary = $('#edit-salary-val').val();
     let bonus = $('#edit-bonus-val').val();
-    let appUser = {
+    let income = {
+        // id: objChoose.income.id,
         salary: salary,
         bonus: bonus
     };
+    // let name = objChoose.name;
+    // let dob = objChoose.dateOfBirth;
+    // let address = objChoose.address;
+    // let cv = objChoose.cvFile;
+    // let appUser = objChoose.appUser;
+    //
+    // let object = {
+    //     name : name,
+    //     dateOfBirth: dob,
+    //     address: address,
+    //     income : income,
+    //     cvFile : cv,
+    //     appUser : appUser
+    // }
     // goi ajax
     $.ajax({
         headers: {
@@ -264,9 +279,9 @@ function editById(id) {
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
-        data: JSON.stringify(appUser),
+        data: JSON.stringify(income),
         //tên API
-        url: "http://localhost:8080/trainer/edit/" + id,
+        url: "http://localhost:8080/trainer/editIncome/" + id,
         //xử lý khi thành công
         success: function (){
             console.log("win")

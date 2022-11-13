@@ -236,15 +236,12 @@ function getDetail(id) {
         success: function (response) {
             objChoose = response;
             // appUserChoose = response.appUser;
-            let placeholderSalary = '<input type="number" id="edit-salary-val" value="' + response.playIncome.salary + '" class="form-control">'
+            let placeholderSalary = '<input type="number" id="edit-salary-val" value="' + response.playerIncome.salary + '" class="form-control">'
             $('#edit-salary').empty().append(placeholderSalary);
-            let placeholderplayTime = '<input type="number" id="edit-playTime-val" value="' + response.playIncome.playTime + '" class="form-control">'
+            let placeholderplayTime = '<input type="number" id="edit-playTime-val" value="' + response.playerIncome.playTime + '" class="form-control">'
             $('#edit-playTime').empty().append(placeholderplayTime);
-            let placeholderBonus = '<input type="number" id="edit-bonus-val" value="' + response.playIncome.bonus + '" class="form-control">'
-            $('#edit-password').empty().append(placeholderBonus);
-            let placeholderIncome = '<p class="form-control-static">' + ((response.playIncome.playTime * response.playIncome.bonus) + response.playIncome.salary) + '</p>'
-            $('#edit-account').empty().append(placeholderIncome);
-
+            let placeholderBonus = '<input type="number" id="edit-bonus-val" value="' + response.playerIncome.bonus + '" class="form-control">'
+            $('#edit-bonus').empty().append(placeholderBonus);
         },
         error : function(e) {
             alert("ERROR: ", e);
