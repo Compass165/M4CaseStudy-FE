@@ -349,8 +349,20 @@
                                 <div class="col-12 col-md-9" id="edit-position"></div>
                             </div>
                             <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-performance" class=" form-control-label">Phong độ</label></div>
+                                <div class="col-12 col-md-9" id="edit-performance"></div>
+                            </div>
+                            <div class="row form-group">
                                 <div class="col col-md-3"><label for="edit-file" class=" form-control-label">File hồ sơ</label></div>
                                 <div class="col-12 col-md-9" id="edit-file"><input type="file" id="edit-file-val" name="file-input" class="form-control-file"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-image" class=" form-control-label">File ảnh</label></div>
+                                <div class="col-12 col-md-9" id="edit-image"><input type="file" id="edit-image-val" name="file-input" class="form-control-file"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-status" class=" form-control-label">Trạng thái</label></div>
+                                <div class="col-12 col-md-9" id="edit-status"></div>
                             </div>
                         </form>
                     </div>
@@ -364,13 +376,6 @@
     </div>
 
 </div><!-- /#right-panel -->
-
-<select id="edit-select-val" class="form-control">
-    <option value="1">Tiền đạo</option>
-    <option value="2">Tiền vệ</option>
-    <option value="3">Hậu vệ</option>
-    <option value="4">Thủ môn</option>
-</select>
 
 <!-- Right Panel -->
 
@@ -418,19 +423,6 @@
             normalizeFunction: 'polynomial'
         });
     })(jQuery);
-</script>
-<script>
-    $(document).ready(function(){
-        let positionId;
-        let positionName;
-        $("select#edit-select-val.form-control").change(function(){
-            positionId = $(this).children("option:selected").val();
-            positionName = $(this).children("option:selected").text();
-            console.log(positionId);
-            console.log(positionName);
-            alert("You have selected the country - " + positionId + positionName);
-        });
-    });
 </script>
 
 </body>

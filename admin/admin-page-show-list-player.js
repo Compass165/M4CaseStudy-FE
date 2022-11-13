@@ -2,6 +2,9 @@ let token = localStorage.getItem("token");
 let idChoose;
 let objChoose;
 let appUserChoose;
+let arrPosition;
+let arrPerformance;
+let arrStatus;
 showListPlayer(0, 10, '');
 let totalPages = 1;
 function showListPlayer(startPage, size, nameSearch) {
@@ -196,7 +199,7 @@ function addNewTrainer() {
         url: "http://localhost:8080/trainer",
         //xử lý khi thành công
         success: function (){
-            showLister();
+            showListPlayer();
         }
 
     });
@@ -232,6 +235,54 @@ function getDetail(id) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
+        url: "http://localhost:8080/player/position",
+        //xử lý khi thành công
+        success: function (response) {
+            arrPosition = response;
+        },
+        error : function(e) {
+            alert("ERROR: ", e);
+            console.log("ERROR: ", e);
+        }
+    });
+    $.ajax({
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        //tên API
+        url: "http://localhost:8080/player/performance",
+        //xử lý khi thành công
+        success: function (response) {
+            arrPerformance = response;
+        },
+        error : function(e) {
+            alert("ERROR: ", e);
+            console.log("ERROR: ", e);
+        }
+    });
+    $.ajax({
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        //tên API
+        url: "http://localhost:8080/player/status",
+        //xử lý khi thành công
+        success: function (response) {
+            arrStatus = response;
+        },
+        error : function(e) {
+            alert("ERROR: ", e);
+            console.log("ERROR: ", e);
+        }
+    });
+    $.ajax({
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        //tên API
         url: "http://localhost:8080/player/find-player-by-id/" + id,
         //xử lý khi thành công
         success: function (response) {
@@ -249,14 +300,27 @@ function getDetail(id) {
             $('#edit-height').empty().append(placeholderHeight);
             let placeholderWeight = '<input type="text" id="edit-weight-val" value="' + response.weight + '" class="form-control">'
             $('#edit-weight').empty().append(placeholderWeight);
-            let placeholderPosition = '<select id="edit-select-val" class="form-control">' +
-                '<option value="' + response.position.id + '">' + response.position.name + '</option>' +
-                '<option value="1">Tiền đạo</option>' +
-                '<option value="2">Tiền vệ</option>' +
-                '<option value="3">Hậu vệ</option>' +
-                '<option value="4">Thủ môn</option>' +
-                '</select>'
+            let placeholderPosition = '<select id="edit-position-val" class="form-control">' +
+                '<option value="' + response.position.id + '">' + response.position.name + '</option>'
+            for (let i=0; i < arrPosition.length; i++) {
+                placeholderPosition += '<option value="' + arrPosition[i].id + '">' + arrPosition[i].name + '</option>'
+            }
+            placeholderPosition += '</select>'
             $('#edit-position').empty().append(placeholderPosition);
+            let placeholderPerformance = '<select id="edit-performance-val" class="form-control">' +
+                '<option value="' + response.performance.id + '">' + response.performance.ranking + '</option>'
+            for (let i=0; i < arrPerformance.length; i++) {
+                placeholderPerformance += '<option value="' + arrPerformance[i].id + '">' + arrPerformance[i].ranking + '</option>'
+            }
+            placeholderPerformance += '</select>'
+            $('#edit-performance').empty().append(placeholderPerformance);
+            let placeholderStatus = '<select id="edit-status-val" class="form-control">' +
+                '<option value="' + response.status.id + '">' + response.status.status + '</option>'
+            for (let i=0; i < arrStatus.length; i++) {
+                placeholderStatus += '<option value="' + arrStatus[i].id + '">' + arrStatus[i].status + '</option>'
+            }
+            placeholderStatus += '</select>'
+            $('#edit-status').empty().append(placeholderStatus);
         },
         error : function(e) {
             alert("ERROR: ", e);
@@ -278,11 +342,14 @@ function editById(id) {
     let password = $('#edit-password-val').val();
     let height = $('#edit-height-val').val();
     let weight = $('#edit-weight-val').val();
-    let positionId;
-    let positionName;
-
-    // let performance = $('#edit-performance-val').val();
-    let cv_file = $('#edit-file-val').val();
+    let positionId = $('#edit-position-val').children("option:selected").val();
+    let positionName = $('#edit-position-val').children("option:selected").text();
+    let performanceId = $('#edit-performance-val').children("option:selected").val();
+    let performanceRanking = $('#edit-performance-val').children("option:selected").text();
+    let profile = $('#edit-file-val').val();
+    let image= $('#edit-image-val').val();
+    let statusId = $('#edit-status-val').children("option:selected").val();
+    let statusStatus = $('#edit-status-val').children("option:selected").text();
     let appUser = {
         id: appUserChoose.id,
         name: appUserChoose.name,
@@ -300,9 +367,17 @@ function editById(id) {
             id: positionId,
             name: positionName
         },
-
-        income: objChoose.income,
-        cvFile: cv_file
+        performance: {
+            id: performanceId,
+            name: performanceRanking
+        },
+        playerIncome: objChoose.playerIncome,
+        profile: profile,
+        image: image,
+        status: {
+            id: statusId,
+            name: statusStatus
+        }
     };
     // goi ajax
     $.ajax({
@@ -320,7 +395,7 @@ function editById(id) {
         //xử lý khi thành công
         success: function (){
             console.log("win")
-            showLister(0, 10, '');
+            showListPlayer(0, 10, '');
         }
 
     });
