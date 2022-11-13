@@ -5,6 +5,7 @@ let appUserChoose;
 let arrPosition;
 let arrPerformance;
 let arrStatus;
+let totalE;
 showListPlayer(0, 10, '');
 let totalPages = 1;
 function showListPlayer(startPage, size, nameSearch) {
@@ -22,6 +23,7 @@ function showListPlayer(startPage, size, nameSearch) {
         },
         //xử lý khi thành công
         success: function (response) {
+            totalE = response.totalElements-10;
             console.log(response);
             $('#bootstrap-data-table-export tbody').empty();
             // add table rows
@@ -169,37 +171,186 @@ $(document).on("click", "ul.pagination li a", function() {
     }
 });
 
+function getDetailC(id) {
+    idChoose = id;
+    $.ajax({
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        //tên API
+        url: "http://localhost:8080/player/position",
+        //xử lý khi thành công
+        success: function (response) {
+            arrPosition = response;
+        },
+        error : function(e) {
+            alert("ERROR: ", e);
+            console.log("ERROR: ", e);
+        }
+    });
+    $.ajax({
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        //tên API
+        url: "http://localhost:8080/player/performance",
+        //xử lý khi thành công
+        success: function (response) {
+            arrPerformance = response;
+        },
+        error : function(e) {
+            alert("ERROR: ", e);
+            console.log("ERROR: ", e);
+        }
+    });
+    $.ajax({
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        //tên API
+        url: "http://localhost:8080/player/status",
+        //xử lý khi thành công
+        success: function (response) {
+            arrStatus = response;
+        },
+        error : function(e) {
+            alert("ERROR: ", e);
+            console.log("ERROR: ", e);
+        }
+    });
+    $.ajax({
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        //tên API
+        url: "http://localhost:8080/player/find-player-by-id/" + id,
+        //xử lý khi thành công
+        success: function (response) {
+            objChoose = response;
+            appUserChoose = response.appUser;
+            let placeholderName = '<input type="text" id="create-name-val" value="' + response.name + '" class="form-control">'
+            $('#create-name').empty().append(placeholderName);
+            let placeholderAddress = '<input type="text" id="create-address-val" value="' + response.address + '" class="form-control">'
+            $('#create-address').empty().append(placeholderAddress);
+            let placeholderAcc = '<input type="text" id="create-account-val" value="' + appUserChoose.name + '" class="form-control">'
+            $('#create-account').empty().append(placeholderAcc);
+            let placeholderPass = '<input type="text" id="create-password-val" value="' + appUserChoose.password + '" class="form-control">'
+            $('#create-password').empty().append(placeholderPass);
+            let placeholderHeight = '<input type="text" id="create-height-val" value="' + response.height + '" class="form-control">'
+            $('#create-height').empty().append(placeholderHeight);
+            let placeholderWeight = '<input type="text" id="create-weight-val" value="' + response.weight + '" class="form-control">'
+            $('#create-weight').empty().append(placeholderWeight);
+            let placeholderPosition = '<select id="create-position-val" class="form-control">' +
+                '<option value="' + response.position.id + '">' + response.position.name + '</option>'
+            for (let i=0; i < arrPosition.length; i++) {
+                placeholderPosition += '<option value="' + arrPosition[i].id + '">' + arrPosition[i].name + '</option>'
+            }
+            placeholderPosition += '</select>'
+            $('#create-position').empty().append(placeholderPosition);
+            let placeholderPerformance = '<select id="create-performance-val" class="form-control">' +
+                '<option value="' + response.performance.id + '">' + response.performance.ranking + '</option>'
+            for (let i=0; i < arrPerformance.length; i++) {
+                placeholderPerformance += '<option value="' + arrPerformance[i].id + '">' + arrPerformance[i].ranking + '</option>'
+            }
+            placeholderPerformance += '</select>'
+            $('#create-performance').empty().append(placeholderPerformance);
+            let placeholderStatus = '<select id="create-status-val" class="form-control">' +
+                '<option value="' + response.status.id + '">' + response.status.status + '</option>'
+            for (let i=0; i < arrStatus.length; i++) {
+                placeholderStatus += '<option value="' + arrStatus[i].id + '">' + arrStatus[i].status + '</option>'
+            }
+            placeholderStatus += '</select>'
+            $('#create-status').empty().append(placeholderStatus);
+        },
+        error : function(e) {
+            alert("ERROR: ", e);
+            console.log("ERROR: ", e);
+        }
+    });
+}
 
+// Hứng sự kiện create
+$(document).on("click", 'div.card-header label.switch.switch-text.switch-success', function() {
+    getDetailC(totalE);
+});
 
-function addNewTrainer() {
+function addNewPlayer() {
     //lay du lieu
-    let address = $('#address').val();
-    let cv_file = $('#cv_file').val();
-    let date_of_birth = $('#date_of_birth').val();
-    let name = $('#name').val();
-    let app_user_id = $('#app_user_id').val();
-    let income_id = $('#income_id').val();
-    let newTrainer = {
-        address: address,
-        cv_file: cv_file,
-        date_of_birth: date_of_birth,
-        name: name,
-        app_user_id: app_user_id,
-        income_id:income_id
-    };
+    let formData = new FormData();
+    let name = $('#create-name-val').val();
+    let date_of_birth = $('#create-dob-val').val();
+    let address = $('#create-address-val').val();
+    let account = $('#create-account-val').val();
+    let password = $('#create-password-val').val();
+    let height = $('#create-height-val').val();
+    let weight = $('#create-weight-val').val();
+    let positionId = $('#create-position-val').children("option:selected").val();
+    let positionName = $('#create-position-val').children("option:selected").text();
+    let position = {
+        id: positionId,
+        name: positionName
+    }
+    let performanceId = $('#create-performance-val').children("option:selected").val();
+    let performanceRanking = $('#create-performance-val').children("option:selected").text();
+    let performance = {
+        id: performanceId,
+        ranking: performanceRanking
+    }
+    let profile = $('#create-file-val')[0].files[0];
+    let image = $('#create-image-val')[0].files[0];
+    let statusId = $('#create-status-val').children("option:selected").val();
+    let statusStatus = $('#create-status-val').children("option:selected").text();
+    let status = {
+        id: statusId,
+        status: statusStatus
+    }
+    let appUser = {
+        id: totalE,
+        name: account,
+        password: password,
+        roleSet: {
+            id: 3,
+            name: "ROLES_PLAYER",
+            authority: "ROLES_PLAYER"
+        }
+    }
+    formData.append('name', name);
+    formData.append('dateOfBirth', date_of_birth);
+    formData.append('address', address);
+    formData.append('height', height);
+    formData.append('weight', weight);
+    formData.append('appUser', appUser);
+    formData.append('password', password);
+    formData.append('position', position);
+    formData.append('performance', performance);
+    formData.append('playerIncome', objChoose.playerIncome);
+    if (image !== undefined){
+        formData.append('image', image);
+    }
+    if (profile !== undefined){
+        formData.append('profile', profile);
+    }
+    formData.append('status', status);
     // goi ajax
     $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        contentType: false,
+        processData: false,
+        enctype: 'multipart/form-data',
+        dataType: "json",
         type: "POST",
-        data: JSON.stringify(newTrainer),
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        data: formData,
         //tên API
-        url: "http://localhost:8080/trainer",
+        url: "http://localhost:8080/player/create",
         //xử lý khi thành công
         success: function (){
-            showListPlayer();
+            showListPlayer(0, 10, '');
         }
 
     });
@@ -215,7 +366,7 @@ function deleteById(id){
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
-        url: "http://localhost:8080/player/" + id,
+        url: "http://localhost:8080/player/delete/" + id,
         //xử lý khi thành công
         success: function (data) {
             console.log("Xoa thanh cong ");
@@ -330,66 +481,78 @@ function getDetail(id) {
 }
 
 // Hứng sự kiện edit
-$(document).on("click", 'div.modal-content div.modal-footer button.btn.btn-primary', function() {
+$(document).on("click", 'div.modal-content div#edit.modal-footer button.btn.btn-primary', function() {
     editById(idChoose);
 });
 
 function editById(id) {
     //lay du lieu
-    let name = $('#edit-name-val').val();
-    let date_of_birth = $('#edit-dob-val').val();
-    let address = $('#edit-address-val').val();
-    let password = $('#edit-password-val').val();
-    let height = $('#edit-height-val').val();
-    let weight = $('#edit-weight-val').val();
-    let positionId = $('#edit-position-val').children("option:selected").val();
-    let positionName = $('#edit-position-val').children("option:selected").text();
-    let performanceId = $('#edit-performance-val').children("option:selected").val();
-    let performanceRanking = $('#edit-performance-val').children("option:selected").text();
-    let profile = $('#edit-file-val').val();
-    let image= $('#edit-image-val').val();
-    let statusId = $('#edit-status-val').children("option:selected").val();
-    let statusStatus = $('#edit-status-val').children("option:selected").text();
+    let formData = new FormData();
+    let name = $('#create-name-val').val();
+    let date_of_birth = $('#create-dob-val').val();
+    let address = $('#create-address-val').val();
+    let password = $('#create-password-val').val();
+    let height = $('#create-height-val').val();
+    let weight = $('#create-weight-val').val();
+    let positionId = $('#create-position-val').children("option:selected").val();
+    let positionName = $('#create-position-val').children("option:selected").text();
+    let position = {
+        id: positionId,
+        name: positionName
+    }
+    let performanceId = $('#create-performance-val').children("option:selected").val();
+    let performanceRanking = $('#create-performance-val').children("option:selected").text();
+    let performance = {
+        id: performanceId,
+        ranking: performanceRanking
+    }
+    let profile = $('#create-file-val')[0].files[0];
+    let image = $('#create-image-val')[0].files[0];
+    let statusId = $('#create-status-val').children("option:selected").val();
+    let statusStatus = $('#create-status-val').children("option:selected").text();
+    let status = {
+        id: statusId,
+        status: statusStatus
+    }
     let appUser = {
         id: appUserChoose.id,
         name: appUserChoose.name,
         password: password,
-        roleSet: appUserChoose.roleSet
-    }
-    let object = {
-        name: name,
-        dateOfBirth: date_of_birth,
-        address: address,
-        height: height,
-        weight: weight,
-        appUser: appUser,
-        position: {
-            id: positionId,
-            name: positionName
-        },
-        performance: {
-            id: performanceId,
-            name: performanceRanking
-        },
-        playerIncome: objChoose.playerIncome,
-        profile: profile,
-        image: image,
-        status: {
-            id: statusId,
-            name: statusStatus
+        roleSet: {
+            id: 3,
+            name: "ROLES_PLAYER",
+            authority: "ROLES_PLAYER"
         }
-    };
+    }
+    formData.append('name', name);
+    formData.append('dateOfBirth', date_of_birth);
+    formData.append('address', address);
+    formData.append('height', height);
+    formData.append('weight', weight);
+    formData.append('appUser', appUser);
+    formData.append('password', password);
+    formData.append('position', position);
+    formData.append('performance', performance);
+    formData.append('playerIncome', objChoose.playerIncome);
+    if (image !== undefined){
+        formData.append('image', image);
+    }
+    if (profile !== undefined){
+        formData.append('profile', profile);
+    }
+    formData.append('status', status);
+
     // goi ajax
     $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        contentType: false,
+        processData: false,
+        enctype: 'multipart/form-data',
+        dataType: "json",
         type: "PUT",
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
-        data: JSON.stringify(object),
+        data: formData,
         //tên API
         url: "http://localhost:8080/player/edit/" + id,
         //xử lý khi thành công
