@@ -283,11 +283,11 @@ function editById(id) {
         },
         data: JSON.stringify(salaryPlayer),
         //tên API
-        url: "http://localhost:8080/player/edit/" + id,
+        url: "http://localhost:8080/player/editIncome/" + id,
         //xử lý khi thành công
         success: function (){
             console.log("win")
-            showLister(0, 10, '');
+            showSalaryPlayer(0, 10, '');
         }
 
     });
