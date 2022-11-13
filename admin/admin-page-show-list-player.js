@@ -1,4 +1,4 @@
-let token = localStorage.getItem("token");
+// let token = localStorage.getItem("token");
 let idChoose;
 let objChoose;
 let appUserChoose;
