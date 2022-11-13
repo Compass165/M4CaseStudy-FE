@@ -216,7 +216,131 @@
 
     </header><!-- /header -->
     <!-- Header-->
+    <div class="content mt-3" id="abc">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Bảng lương Huấn luyện viên</strong>
+                        </div>
+                        <div class="card-body">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Tên</th>
+                                    <th>Năm sinh</th>
+                                    <th>Lương cứng</th>
+                                    <th>Thưởng</th>
+                                    <th>Tổng thu nhập</th>
+                                    <th>Sửa lương</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .animated -->
+    </div> <!-- .content -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-trainer">
+                        <table>
+                            <tr>
+                                <td>salary:</td>
+                                <td><input type="number" id="salary" placeholder="salary"></td>
+                            </tr>
+                            <tr>
+                                <td>playTime:</td>
+                                <td><input type="number" id="playTime" placeholder="playTime"></td>
+                            </tr>
+                            <tr>
+                                <td>bonus:</td>
+                                <td><input type="bonus" id="bonus" placeholder="bonus"></td>
+                            </tr>
+                            <!--                            <tr>-->
+                            <!--                                <td>app_user_id:</td>-->
+                            <!--                                <td><input type="text" id="app_user_id" placeholder="app_user_id"></td>-->
+                            <!--                            </tr>-->
+                            <!--                            <tr>-->
+                            <!--                                <td>income_id:</td>-->
+                            <!--                                <td><input type="text" id="income_id" placeholder="income_id"></td>-->
+                            <!--                            </tr>-->
+                            <!--                            <tr>-->
+                            <!--                                <td>cv:</td>-->
+                            <!--                                <td id="cv_file"><input type="text" id="a" placeholder="cv_file"></td>-->
+                            <!--                            </tr>-->
+                            <td></td>
+                            <td><input id="add" type="submit" value="Add" onclick="addNewSalary()"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Sửa thông tin lương</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body card-block">
+                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-salary" class=" form-control-label">Lương cứng</label></div>
+                                <div class="col-12 col-md-9" id="edit-salary"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="edit-bonus" class=" form-control-label">Lương thưởng</label></div>
+                                <div class="col-12 col-md-9" id="edit-bonus"></div>
+                            </div>
+                            <!--                            <div class="row form-group">-->
+                            <!--                                <div class="col col-md-3"><label class=" form-control-label">Tài khoản</label></div>-->
+                            <!--                                <div class="col-12 col-md-9" id="edit-account"></div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="row form-group">-->
+                            <!--                                <div class="col col-md-3"><label for="edit-password" class=" form-control-label">Mật khẩu</label></div>-->
+                            <!--                                <div class="col-12 col-md-9" id="edit-password"></div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="row form-group">-->
+                            <!--                                <div class="col col-md-3"><label for="edit-file" class=" form-control-label">File hồ sơ</label></div>-->
+                            <!--                                <div class="col-12 col-md-9" id="edit-file"><input type="file" id="file-input-val" name="file-input" class="form-control-file"></div>-->
+                            <!--                            </div>-->
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--        Nội dung ở đây trống-->
 
@@ -235,6 +359,7 @@
 <script src="../assets/js/main.js"></script>
 <script src="admin-page.js"></script>
 <script src="../player/logout.js"></script>
+<script src="admin-page-show-list-income-trainer.js"></script>
 
 <script src="../vendors/chart.js/dist/Chart.bundle.min.js"></script>
 <script src="../assets/js/dashboard.js"></script>

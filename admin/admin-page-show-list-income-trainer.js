@@ -1,16 +1,17 @@
 let token = localStorage.getItem("token");
 let idChoose;
 let objChoose;
-showSalaryPlayer(0, 10, '');
+let appUserChoose;
+showListTrainer(0, 10, '');
 let totalPages = 1;
-function showSalaryPlayer(startPage, size, nameSearch) {
+function showListTrainer(startPage, size, nameSearch) {
     $.ajax({
         type: "GET",
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
-        url: "http://localhost:8080/player/search-page-player/name",
+        url: "http://localhost:8080/trainer/page",
         data: {
             page: startPage,
             size: size,
@@ -21,19 +22,18 @@ function showSalaryPlayer(startPage, size, nameSearch) {
             console.log(response);
             $('#bootstrap-data-table-export tbody').empty();
             // add table rows
-            $.each(response.content, (id, player) => {
+            $.each(response.content, (id, trainer) => {
                 let noteRow = '<tr>' +
-                    '<td>' + player.name + '</td>' +
-                    '<td>' + player.dateOfBirth.slice(0,10) + '</td>' +
-                    '<td>$' + player.playerIncome.salary + '</td>' +
-                    '<td>$' + player.playerIncome.playTime + '</td>' +
-                    '<td>' + player.playerIncome.bonus + 'h</td>' +
-                    '<td>$' + ((player.playerIncome.bonus * player.playerIncome.playTime) + player.playerIncome.salary) + '</td>' +
-                    '<td><button type="button" onclick="getDetail(' + player.id + ')" class="btn btn-success" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-magic"></i>&nbsp; Edit</button></td>' +
+                    '<td>' + trainer.name + '</td>' +
+                    '<td>' + trainer.dateOfBirth.slice(0,10) + '</td>' +
+                    '<td>$' + trainer.income.salary + '</td>' +
+                    '<td>' + trainer.income.bonus + 'h</td>' +
+                    '<td>$' + (trainer.income.bonus + trainer.income.salary) + '</td>' +
+                    '<td><button type="button" onclick="getDetail(' + trainer.id + ')" class="btn btn-success" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-magic"></i>&nbsp; Edit</button></td>' +
                     '</tr>';
                 $('#bootstrap-data-table-export tbody').append(noteRow);
             });
-            let abc = 'Hiển thị từ ' + ((response.size*response.pageable.pageNumber)+1) + ' tới ' + ((response.size*response.pageable.pageNumber)+response.size) + ' trong ' + response.totalElements + ' cầu thủ';
+            let abc = 'Hiển thị từ ' + ((response.size*response.pageable.pageNumber)+1) + ' tới ' + ((response.size*response.pageable.pageNumber)+response.size) + ' trong ' + response.totalElements + ' huấn luyện viên';
             $('#bootstrap-data-table-export_info').empty().append(abc);
 
             // if ($('ul.pagination li').length - 2 != response.totalPages) {
@@ -107,13 +107,13 @@ function buildPagination(response) {
 // Hứng sự kiện search
 $(document).on("change", 'div.dataTables_filter label input.form-control.form-control-sm', function() {
     let nameSearch = $(this).val();
-    showListPlayer(0, 10, nameSearch);
+    showListTrainer(0, 10, nameSearch);
 });
 
 // Hứng sự kiện size page
 $(document).on("mouseout", 'div.dataTables_length label select.custom-select.custom-select-sm.form-control.form-control-sm', function() {
     let size = $(this).val();
-    showListPlayer(0, size, '');
+    showListTrainer(0, size, '');
 });
 
 $(document).on("click", "ul.pagination li a", function() {
@@ -124,12 +124,12 @@ $(document).on("click", "ul.pagination li a", function() {
     // click on the NEXT tag
     if(val.toUpperCase() === "« FIRST") {
         let currentActive = $("li.active");
-        showListPlayer(0, 10, '');
+        showListTrainer(0, 10, '');
         $("li.active").removeClass("active");
         // add .active to next-pagination li
         currentActive.next().addClass("active");
     } else if(val.toUpperCase() === "LAST »") {
-        showListPlayer(totalPages - 1, 10, '');
+        showListTrainer(totalPages - 1, 10, '');
         $("li.active").removeClass("active");
         // add .active to next-pagination li
         currentActive.next().addClass("active");
@@ -138,7 +138,7 @@ $(document).on("click", "ul.pagination li a", function() {
         if(activeValue < totalPages){
             let currentActive = $("li.active");
             startPage = activeValue;
-            showListPlayer(startPage, 10, '');
+            showListTrainer(startPage, 10, '');
             // remove .active class for the old li tag
             $("li.active").removeClass("active");
             // add .active to next-pagination li
@@ -149,7 +149,7 @@ $(document).on("click", "ul.pagination li a", function() {
         if(activeValue > 1) {
             // get the previous page
             startPage = activeValue - 2;
-            showListPlayer(startPage, 10, '');
+            showListTrainer(startPage, 10, '');
             let currentActive = $("li.active");
             currentActive.removeClass("active");
             // add .active to previous-pagination li
@@ -157,7 +157,7 @@ $(document).on("click", "ul.pagination li a", function() {
         }
     } else {
         startPage = parseInt(val - 1);
-        showListPlayer(startPage, 10, '');
+        showListTrainer(startPage, 10, '');
         // add focus to the li tag
         $("li.active").removeClass("active");
         $(this).parent().addClass("active");
@@ -167,21 +167,13 @@ $(document).on("click", "ul.pagination li a", function() {
 
 
 
-function addNewSalary() {
+function addNewTrainer() {
     //lay du lieu
     let salary = $('#salary').val();
     let playTime = $('#playTime').val();
-    let bonus = $('#bonus').val();
-    // let name = $('#name').val();
-    // let app_user_id = $('#app_user_id').val();
-    // let income_id = $('#income_id').val();
-    let newSalary = {
+    let newTrainer = {
         salary: salary,
-        playTime: playTime,
-        bonus: bonus
-        // name: name,
-        // app_user_id: app_user_id,
-        // income_id:income_id
+        playTime: playTime
     };
     // goi ajax
     $.ajax({
@@ -190,12 +182,12 @@ function addNewSalary() {
             'Content-Type': 'application/json'
         },
         type: "POST",
-        data: JSON.stringify(newSalary),
+        data: JSON.stringify(newTrainer),
         //tên API
-        url: "http://localhost:8080/player/list-player",
+        url: "http://localhost:8080/trainer",
         //xử lý khi thành công
         success: function (){
-            showLister();
+            showListTrainer();
         }
 
     });
@@ -211,11 +203,11 @@ function deleteById(id){
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
-        url: "http://localhost:8080/player/" + id,
+        url: "http://localhost:8080/trainer/" + id,
         //xử lý khi thành công
         success: function (data) {
             console.log("Xoa thanh cong ");
-            showListPlayer(0, 10, '');
+            showListTrainer(0, 10, '');
         }
 
     });
@@ -231,20 +223,16 @@ function getDetail(id) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
-        url: "http://localhost:8080/player/find-player-by-id/" + id,
+        url: "http://localhost:8080/trainer/" + id,
         //xử lý khi thành công
         success: function (response) {
             objChoose = response;
-            // appUserChoose = response.appUser;
-            let placeholderSalary = '<input type="number" id="edit-salary-val" value="' + response.playIncome.salary + '" class="form-control">'
+            let placeholderSalary = '<input type="number" id="edit-salary-val" value="' + response.income.salary + '" class="form-control">'
             $('#edit-salary').empty().append(placeholderSalary);
-            let placeholderplayTime = '<input type="number" id="edit-playTime-val" value="' + response.playIncome.playTime + '" class="form-control">'
-            $('#edit-playTime').empty().append(placeholderplayTime);
-            let placeholderBonus = '<input type="number" id="edit-bonus-val" value="' + response.playIncome.bonus + '" class="form-control">'
+            let placeholderplayTime = '<input type="number" id="edit-playTime-val" value="' + response.income.playTime + '" class="form-control">'
             $('#edit-password').empty().append(placeholderBonus);
-            let placeholderIncome = '<p class="form-control-static">' + ((response.playIncome.playTime * response.playIncome.bonus) + response.playIncome.salary) + '</p>'
+            let placeholderIncome = '<p class="form-control-static">' + ((response.income.playTime * response.income.bonus) + response.income.salary) + '</p>'
             $('#edit-account').empty().append(placeholderIncome);
-
         },
         error : function(e) {
             alert("ERROR: ", e);
@@ -261,19 +249,11 @@ $(document).on("click", 'div.modal-content div.modal-footer button.btn.btn-prima
 function editById(id) {
     //lay du lieu
     let salary = $('#edit-salary-val').val();
-    let playTime = $('#edit-playTime-val').val();
     let bonus = $('#edit-bonus-val').val();
-    // let password = $('#edit-password-val').val();
-    // let height = $('#edit-height-val').val();
-    // let weight = $('#edit-weight-val').val();
-    // let position = $('#edit-position-val').val();
-    // let performance = $('#edit-performance-val').val();
-    // let cv_file = $('#edit-file-val').val();
-    let salaryPlayer = {
+    let appUser = {
         salary: salary,
-        playTime: playTime,
         bonus: bonus
-    }
+    };
     // goi ajax
     $.ajax({
         headers: {
@@ -284,13 +264,13 @@ function editById(id) {
         beforeSend: function (xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
-        data: JSON.stringify(salaryPlayer),
+        data: JSON.stringify(appUser),
         //tên API
-        url: "http://localhost:8080/player/edit/" + id,
+        url: "http://localhost:8080/trainer/edit/" + id,
         //xử lý khi thành công
         success: function (){
             console.log("win")
-            showLister(0, 10, '');
+            showListTrainer(0, 10, '');
         }
 
     });
