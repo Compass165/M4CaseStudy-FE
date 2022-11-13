@@ -1,6 +1,5 @@
 // let token = localStorage.getItem("token");
-
-$(document).ready(function() {
+showListTrainer(0, 10, '');
 let totalPages = 1;
 function showListTrainer(startPage, size, nameSearch) {
     $.ajax({
@@ -17,8 +16,8 @@ function showListTrainer(startPage, size, nameSearch) {
         },
         //xử lý khi thành công
         success: function (response) {
+            console.log(response);
             $('#bootstrap-data-table-export tbody').empty();
-            $('#bootstrap-data-table-export_info').empty();
             // add table rows
             $.each(response.content, (id, trainer) => {
                 let noteRow = '<tr>' +
@@ -28,15 +27,14 @@ function showListTrainer(startPage, size, nameSearch) {
                     '</tr>';
                 $('#bootstrap-data-table-export tbody').append(noteRow);
             });
-            let abc = 'Hiển thị từ ' + ((response.size*response.pageable.pageNumber)+1) + ' tới ' + ((response.size*response.pageable.pageNumber)+response.size) + ' trong ' + response.totalElements + ' HLV';
-            $('#bootstrap-data-table-export_info').append(abc);
+            let abc = 'Hiển thị từ ' + ((response.size*response.pageable.pageNumber)+1) + ' tới ' + ((response.size*response.pageable.pageNumber)+response.size) + ' trong ' + response.totalElements + ' huấn luyện viên';
+            $('#bootstrap-data-table-export_info').empty().append(abc);
 
             // if ($('ul.pagination li').length - 2 != response.totalPages) {
             //     // build pagination list at the first time loading
-                // $('ul.pagination').empty();
-                // buildPagination(response);
+            // $('ul.pagination').empty();
+            // buildPagination(response);
             // }
-            // build pagination list at the first time loading.
             $('ul.pagination').empty();
             buildPagination(response);
         },
@@ -107,7 +105,7 @@ $(document).on("change", 'div.dataTables_filter label input.form-control.form-co
 });
 
 // Hứng sự kiện size page
-$(document).on("change", 'div.dataTables_length label select.custom-select.custom-select-sm.form-control.form-control-sm', function() {
+$(document).on("mouseout", 'div.dataTables_length label select.custom-select.custom-select-sm.form-control.form-control-sm', function() {
     let size = $(this).val();
     showListTrainer(0, size, '');
 });
@@ -159,10 +157,4 @@ $(document).on("click", "ul.pagination li a", function() {
         $(this).parent().addClass("active");
         //$(this).addClass("active");
     }
-});
-
-(function(){
-    // get first-page at initial time
-    showListTrainer(0, 10, '');
-})();
 });

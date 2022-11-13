@@ -1,5 +1,4 @@
 // let token = localStorage.getItem("token");
-let totalE;
 showListPlayer(0, 10, '');
 let totalPages = 1;
 function showListPlayer(startPage, size, nameSearch) {
@@ -17,7 +16,6 @@ function showListPlayer(startPage, size, nameSearch) {
         },
         //xử lý khi thành công
         success: function (response) {
-            totalE = response.totalElements-10;
             console.log(response);
             $('#bootstrap-data-table-export tbody').empty();
             // add table rows
