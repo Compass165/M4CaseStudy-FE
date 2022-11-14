@@ -215,7 +215,58 @@
     <!-- Header-->
 
 
-    <!--        Nội dung ở đây trống-->
+    <div class="content mt-3">
+        <div class="animated fadeIn">
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-3">Lương theo năm </h4>
+                            <canvas id="sales-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-3">Lượt truy cập </h4>
+                            <canvas id="team-chart"></canvas>
+                        </div>
+                    </div>
+                    <!--                    </div>-->
+
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">Bar chart </h4>
+                                <canvas id="barChart"></canvas>
+                            </div>
+                        </div>
+                    </div><!-- /# column -->
+
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">Line Chart </h4>
+                                <canvas id="lineChart"></canvas>
+                            </div>
+                        </div>
+
+
+
+                    </div><!-- /# column -->
+
+
+
+                </div>
+
+            </div><!-- .animated -->
+        </div><!-- .content -->
+
+
+    </div><!-- /#right-panel -->
 
 
 
@@ -239,6 +290,9 @@
 <script src="../vendors/jqvmap/dist/jquery.vmap.min.js"></script>
 <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
 <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<!--  Chart js -->
+<script src="../vendors/chart.js/dist/Chart.bundle.min.js"></script>
+<script src="../assets/js/init-scripts/chart-js/chartjs-init.js"></script>
 
 <script>
     (function($) {
