@@ -23,7 +23,7 @@ function showListPlayer(startPage, size, nameSearch) {
         },
         //xử lý khi thành công
         success: function (response) {
-            totalE = response.totalElements-10;
+            totalE = response.totalElements;
             console.log(response);
             $('#bootstrap-data-table-export tbody').empty();
             // add table rows
