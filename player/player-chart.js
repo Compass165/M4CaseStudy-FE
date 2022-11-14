@@ -1,5 +1,5 @@
-let token = localStorage.getItem("token");
-let id = JSON.parse(localStorage.getItem("currentUser")).id;
+// let token = localStorage.getItem("token");
+// let id = JSON.parse(localStorage.getItem("currentUser")).id;
 
 getSalaryPlayer()
 
