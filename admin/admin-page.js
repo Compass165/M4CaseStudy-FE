@@ -10,7 +10,7 @@ function getTrainerById() {
             xhr.setRequestHeader ("Authorization", "Bearer " + token);
         },
         //tên API
-        url: "http://localhost:8080/trainer/" + id,
+        url: "http://localhost:8080/player/find-player-by-id/" + id,
         //xử lý khi thành công
         success: function (response) {
             $('#getName').append(response.name);
