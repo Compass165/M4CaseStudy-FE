@@ -222,6 +222,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
+                            <label class="switch switch-text switch-success" data-toggle="modal" data-target="#modalCreate"><input type="checkbox" class="switch-input" checked="true"> <span data-on="" data-off="" class="switch-label"></span> <span class="switch-handle"></span></label>
                             <strong class="card-title">Danh sách Huấn luyện viên</strong>
                         </div>
                         <div class="card-body">
@@ -250,47 +251,44 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="createModalLabel">Tạo mới HLV</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="add-trainer">
-                        <table>
-                            <tr>
-                                <td>address:</td>
-                                <td><input type="text" id="address" placeholder="address"></td>
-                            </tr>
-                            <tr>
-                                <td>date_of_birth:</td>
-                                <td><input type="text" id="date_of_birth" placeholder="date_of_birth"></td>
-                            </tr>
-                            <tr>
-                                <td>name:</td>
-                                <td><input type="text" id="name" placeholder="name"></td>
-                            </tr>
-                            <tr>
-                                <td>app_user_id:</td>
-                                <td><input type="text" id="app_user_id" placeholder="app_user_id"></td>
-                            </tr>
-                            <tr>
-                                <td>income_id:</td>
-                                <td><input type="text" id="income_id" placeholder="income_id"></td>
-                            </tr>
-                            <tr>
-                                <td>cv:</td>
-                                <td id="cv_file"><input type="text" id="a" placeholder="cv_file"></td>
-                            </tr>
-                            <td></td>
-                            <td><input id="add" type="submit" value="Add" onclick="addNewTrainer()"></td>
-                            </tr>
-                        </table>
-                    </form>
+                    <div class="card-body card-block">
+                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="create-name" class=" form-control-label">Tên</label></div>
+                                <div class="col-12 col-md-9" id="create-name"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="create-dob" class=" form-control-label">Ngày sinh</label></div>
+                                <div class="col-12 col-md-9" id="create-dob"><input type="date" id="create-dob-val" class="form-control"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="create-address" class=" form-control-label">Địa chỉ</label></div>
+                                <div class="col-12 col-md-9" id="create-address"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="create-account" class=" form-control-label">Tài khoản</label></div>
+                                <div class="col-12 col-md-9" id="create-account"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="create-password" class=" form-control-label">Mật khẩu</label></div>
+                                <div class="col-12 col-md-9" id="create-password"></div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="create-file" class=" form-control-label">File hồ sơ</label></div>
+                                <div class="col-12 col-md-9" id="create-file"><input type="file" id="create-file-val" name="file-input" class="form-control-file"></div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewTrainer()" data-dismiss="modal">Tạo mới</button>
                 </div>
             </div>
         </div>
@@ -339,7 +337,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary">Lưu thay đổi</button>
+                    <button type="button" class="btn btn-primary" onclick="" data-dismiss="modal">Lưu thay đổi</button>
                 </div>
             </div>
         </div>
