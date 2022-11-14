@@ -14,7 +14,7 @@ function getTrainerById() {
         //xử lý khi thành công
         success: function (response) {
             $('#getName').append(response.name);
-            let img = '<img class="user-avatar rounded-circle" src="../images/'+response.appUser.name+'.jpg" alt="User Avatar">'
+            let img = '<img class="user-avatar rounded-circle" src="../images/'+'admin1'+'.jpg" alt="User Avatar">'
             $('#insertImage').append(img);
         },
         error : function(e) {

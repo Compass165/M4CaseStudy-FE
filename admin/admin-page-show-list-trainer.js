@@ -1,7 +1,8 @@
-let token = localStorage.getItem("token");
+// let token = localStorage.getItem("token");
 let idChoose;
 let objChoose;
 let appUserChoose;
+let totalE;
 showListTrainer(0, 10, '');
 let totalPages = 1;
 function showListTrainer(startPage, size, nameSearch) {
@@ -19,6 +20,7 @@ function showListTrainer(startPage, size, nameSearch) {
         },
         //xử lý khi thành công
         success: function (response) {
+            totalE = response.totalElements-3;
             console.log(response);
             $('#bootstrap-data-table-export tbody').empty();
             // add table rows
@@ -164,23 +166,64 @@ $(document).on("click", "ul.pagination li a", function() {
     }
 });
 
+function getDetailC(id) {
+    idChoose = id;
+    $.ajax({
+        type: "GET",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        //tên API
+        url: "http://localhost:8080/player/find-player-by-id/" + id,
+        //xử lý khi thành công
+        success: function (response) {
+            objChoose = response;
+            appUserChoose = response.appUser;
+            let placeholderName = '<input type="text" id="create-name-val" value="' + response.name + '" class="form-control">'
+            $('#create-name').empty().append(placeholderName);
+            let placeholderAddress = '<input type="text" id="create-address-val" value="' + response.address + '" class="form-control">'
+            $('#create-address').empty().append(placeholderAddress);
+            let placeholderAcc = '<input type="text" id="create-account-val" value="' + appUserChoose.name + '" class="form-control">'
+            $('#create-account').empty().append(placeholderAcc);
+            let placeholderPass = '<input type="text" id="create-password-val" value="' + appUserChoose.password + '" class="form-control">'
+            $('#create-password').empty().append(placeholderPass);
+        },
+        error : function(e) {
+            alert("ERROR: ", e);
+            console.log("ERROR: ", e);
+        }
+    });
+}
 
+// Hứng sự kiện create
+$(document).on("click", 'div.card-header label.switch.switch-text.switch-success', function() {
+    getDetailC(totalE);
+});
 
 function addNewTrainer() {
     //lay du lieu
-    let address = $('#address').val();
-    let cv_file = $('#cv_file').val();
-    let date_of_birth = $('#date_of_birth').val();
-    let name = $('#name').val();
-    let app_user_id = $('#app_user_id').val();
-    let income_id = $('#income_id').val();
-    let newTrainer = {
-        address: address,
-        cv_file: cv_file,
-        date_of_birth: date_of_birth,
+    let name = $('#create-name-val').val();
+    let date_of_birth = $('#create-dob-val').val();
+    let address = $('#create-address-val').val();
+    let password = $('#create-password-val').val();
+    let cv_file = $('#create-file-val').val();
+    let appUser = {
+        id: totalE,
+        name: account,
+        password: password,
+        roleSet: {
+            id: 2,
+            name: "ROLES_TRAINER",
+            authority: "ROLES_TRAINER"
+        }
+    }
+    let object = {
         name: name,
-        app_user_id: app_user_id,
-        income_id:income_id
+        dateOfBirth: date_of_birth,
+        address: address,
+        income: objChoose.income,
+        cvFile: cv_file,
+        appUser: appUser,
     };
     // goi ajax
     $.ajax({
@@ -189,12 +232,16 @@ function addNewTrainer() {
             'Content-Type': 'application/json'
         },
         type: "POST",
-        data: JSON.stringify(newTrainer),
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Bearer " + token);
+        },
+        data: JSON.stringify(object),
         //tên API
         url: "http://localhost:8080/trainer",
         //xử lý khi thành công
         success: function (){
-            showListTrainer();
+            console.log("win")
+            showListTrainer(0, 10, '');
         }
 
     });

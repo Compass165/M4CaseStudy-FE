@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Admin Page</title>
+    <title>Player Page</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,8 +24,6 @@
     <link rel="stylesheet" href="../vendors/selectFX/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="../vendors/jqvmap/dist/jqvmap.min.css">
 
-    <link rel="stylesheet" href="../vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
 
     <link rel="stylesheet" href="../assets/css/style.css">
 
@@ -52,41 +50,32 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="admin-page.html"> <i class="menu-icon fa fa-home"></i>Trang chủ</a>
+                    <a href="player-page.html"> <i class="menu-icon fa fa-home"></i>Trang chủ</a>
                 </li>
 
                 <h3 class="menu-title">Thông tin cá nhân</h3><!-- /.menu-title -->
                 <li>
-                    <a href="admin-page-show-detail-admin.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-id-card-o"></i>Xem chi tiết</a>
+                    <a href="player-page-show-detail-player.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-id-card-o"></i>Xem chi tiết</a>
                 </li>
 
-                <h3 class="menu-title">Huấn luyện viên</h3><!-- /.menu-title -->
+                <h3 class="menu-title">Thông tin lương thưởng</h3><!-- /.menu-title -->
                 <li>
-                    <a href="admin-page-show-list-trainer.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sitemap"></i>Danh sách</a>
+                    <a href="player-page-show-detail-income-player.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-money"></i>Bảng lương</a>
                 </li>
                 <li>
-                    <a href="admin-page-show-list-income-trainer.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-money"></i>Bảng lương</a>
-                </li>
-                <li>
-                    <a href="admin-page-show-chart-income-trainer.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Biểu đồ lương</a>
+                    <a href="player-page-show-detail-chart-income-player.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Biểu đồ lương</a>
                 </li>
 
-                <h3 class="menu-title">Cầu thủ</h3><!-- /.menu-title -->
+                <h3 class="menu-title">Danh sách</h3><!-- /.menu-title -->
                 <li>
-                    <a href="admin-page-show-list-player.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-sitemap "></i>Danh sách</a>
-                </li>
-                <li>
-                    <a href="admin-page-show-list-income-player.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-money"></i>Bảng lương</a>
-                </li>
-                <li>
-                    <a href="admin-page-show-chart-income-player.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Biểu đồ lương</a>
+                    <a href="player-page-show-list-player.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-infinite"></i>Cầu thủ</a>
                 </li>
 
                 <h3 class="menu-title">Liên hệ</h3><!-- /.menu-title -->
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-email"></i>Gửi mail</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon ti-download"></i><a href="https://mail.google.com/mail/u/0/#inbox">Gửi mail cho huấn luyện viên</a></li>
+                        <li><i class="menu-icon ti-upload"></i><a href="https://mail.google.com/mail/u/0/#inbox">Gửi báo cáo</a></li>
                         <li><i class="menu-icon ti-dribbble"></i><a href="https://mail.google.com/mail/u/0/#inbox">Gửi mail cho cầu thủ</a></li>
                         <li><i class="menu-icon ti-google"></i><a href="https://mail.google.com/mail/u/0/#inbox">Gmail cá nhân</a></li>
                     </ul>
@@ -109,7 +98,6 @@
 <!-- Left Panel -->
 
 <!-- Right Panel -->
-
 <div id="right-panel" class="right-panel">
 
     <!-- Header-->
@@ -217,132 +205,10 @@
     <!-- Header-->
 
     <div class="content mt-3" id="abc">
-        <div class="animated fadeIn">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <label class="switch switch-text switch-success" data-toggle="modal" data-target="#modalCreate"><input type="checkbox" class="switch-input" checked="true"> <span data-on="" data-off="" class="switch-label"></span> <span class="switch-handle"></span></label>
-                            <strong class="card-title">Danh sách Huấn luyện viên</strong>
-                        </div>
-                        <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Tên</th>
-                                    <th>Ngày sinh</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- .animated -->
+
+        <!--        Nội dung trắng đoạn này-->
+
     </div> <!-- .content -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createModalLabel">Tạo mới HLV</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body card-block">
-                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="create-name" class=" form-control-label">Tên</label></div>
-                                <div class="col-12 col-md-9" id="create-name"></div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="create-dob" class=" form-control-label">Ngày sinh</label></div>
-                                <div class="col-12 col-md-9" id="create-dob"><input type="date" id="create-dob-val" class="form-control"></div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="create-address" class=" form-control-label">Địa chỉ</label></div>
-                                <div class="col-12 col-md-9" id="create-address"></div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="create-account" class=" form-control-label">Tài khoản</label></div>
-                                <div class="col-12 col-md-9" id="create-account"></div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="create-password" class=" form-control-label">Mật khẩu</label></div>
-                                <div class="col-12 col-md-9" id="create-password"></div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="create-file" class=" form-control-label">File hồ sơ</label></div>
-                                <div class="col-12 col-md-9" id="create-file"><input type="file" id="create-file-val" name="file-input" class="form-control-file"></div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" onclick="addNewTrainer()" data-dismiss="modal">Tạo mới</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Sửa thông tin</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body card-block">
-                        <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="edit-name" class=" form-control-label">Tên</label></div>
-                                <div class="col-12 col-md-9" id="edit-name"></div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="edit-dob" class=" form-control-label">Ngày sinh</label></div>
-                                <div class="col-12 col-md-9" id="edit-dob"><input type="date" id="edit-dob-val" class="form-control"></div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="edit-address" class=" form-control-label">Địa chỉ</label></div>
-                                <div class="col-12 col-md-9" id="edit-address"></div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label class=" form-control-label">Tài khoản</label></div>
-                                <div class="col-12 col-md-9" id="edit-account"></div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="edit-password" class=" form-control-label">Mật khẩu</label></div>
-                                <div class="col-12 col-md-9" id="edit-password"></div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="edit-file" class=" form-control-label">File hồ sơ</label></div>
-                                <div class="col-12 col-md-9" id="edit-file"><input type="file" id="edit-file-val" name="file-input" class="form-control-file"></div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" onclick="" data-dismiss="modal">Lưu thay đổi</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div><!-- /#right-panel -->
 
 <!-- Right Panel -->
@@ -351,9 +217,8 @@
 <script src="../vendors/popper.js/dist/umd/popper.min.js"></script>
 <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../assets/js/main.js"></script>
-<script src="admin-page.js"></script>
+<script src="player-page.js"></script>
 <script src="../loginfm/logout.js"></script>
-<script src="admin-page-show-list-trainer.js"></script>
 
 <script src="../vendors/chart.js/dist/Chart.bundle.min.js"></script>
 <script src="../assets/js/dashboard.js"></script>
@@ -361,18 +226,6 @@
 <script src="../vendors/jqvmap/dist/jquery.vmap.min.js"></script>
 <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
 <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-
-<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="../vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="../vendors/jszip/dist/jszip.min.js"></script>
-<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="../vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-<script src="../assets/js/init-scripts/data-table/datatables-init.js"></script>
 
 <script>
     (function($) {
@@ -396,3 +249,4 @@
 </body>
 
 </html>
+
