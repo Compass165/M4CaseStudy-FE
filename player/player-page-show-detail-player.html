@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="../apple-icon.png">
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href="/images/logo_white.PNG">
 
     <link rel="stylesheet" href="../vendors/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.min.css">
@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <script src="player-page-show-detail-player.js"></script>
 
 </head>
 
@@ -204,14 +205,165 @@
     </header><!-- /header -->
     <!-- Header-->
 
-    <div class="content mt-3" id="abc">
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Thông tin chi tiết</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <button type="button" class="btn btn-outline-primary" onclick="getDetail(id)"  data-toggle="modal" data-target="#modalEdit" ><i class="fa fa-edit"></i> Chỉnh sửa thông tin</button>
+            </div>
+        </div>
+    </div>
+    <div id="player-detail-body"></div>
+    <div class="content mt-3">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <aside class="profile-nav alt">
+                        <section class="card">
+                            <div class="card-header user-header alt bg-dark">
+                                <div class="media">
+                                    <a href="#">
+                                        <img class="align-self-center rounded-circle mr-3"
+                                             style="width:85px; height:85px;" alt="" src="/images/admin1.jpg">
+                                    </a>
+                                    <div class="media-body">
+                                        <h2 class="text-light display-6" id="player-name"></h2>
+                                        <p>Cầu thủ chuyên nghiệp thuộc đội tuyển Real MyDinh</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h5 class="heading-title mb-1 text-secondary" style="padding-left: 10px">Thông tin cơ bản</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <a href="#"> <i class="fa fa-info-circle"></i> Ngày sinh <span class="float-right" id="dob"></span></a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="#"> <i class="fa fa-home"></i> Địa chỉ <span class="float-right" id="address"></span></a>
+                                        </li>
+                                    </ul>
 
-        <!--        Nội dung trắng đoạn này-->
+                                </div>
 
-    </div> <!-- .content -->
+                                <div class="col-lg-6 ">
+                                    <h5 class="heading-title mb-1 text-secondary" style="padding-left: 10px" >Thông tin tài khoản</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <a href="#"> <i class="fa fa-user-circle"></i> Tên đăng nhập <span class="float-right" id="username"></span></a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="#"> <i class="fa fa-user"></i> Password <span class="float-right" type="password" id="show_hide_password"></span>
+                                                <!--                                                <div class="input-group-addon float-right">-->
+                                                <!--                                                    <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>-->
+                                                <!--                                                </div>-->
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5 class="heading-title mb-1 text-secondary" style="padding-left: 10px">Thông tin chuyên môn</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <a href="#"> <i class="fa fa-info"></i> Chiều cao <span class="float-right" id="height"></span></a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="#"> <i class="fa fa-info"></i> Cân nặng <span class="float-right" id="weight"></span></a>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <a href="#"> <i class="fa fa-check-square-o"></i> Trạng thái <span class="float-right" id="status"></span></a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="#"> <i class="fa fa-briefcase"></i> Vị trí thi đấu<span class="float-right" id="position"></span></a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="#"> <i class="fa fa-bolt"></i> Phong độ <span class="float-right" id="performance"></span></a>
+                                        </li>
+                                        <li class="list-group-item menu-item-has-children dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-money"></i> Lương thưởng <span class="float-right" id="salary"></span></a>
+                                            <ul class="sub-menu children dropdown-menu">
+                                                <li>Lương cứng</li>
+                                                <li>Thưởng</li>
+                                                <li>Thời gian thi đấu</li>
+                                                <li>Tổng thu nhập</li>
+                                            </ul>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a href="#"> <i class="fa fa-file"></i> Profile (đính kèm) <span class="float-right" id="profile"></span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                    </aside>
+                </div>
+
+            </div><!-- .row -->
+        </div><!-- .animated -->
+    </div><!-- .content -->
+
 </div><!-- /#right-panel -->
 
 <!-- Right Panel -->
+<!-- Modal -->
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Sửa thông tin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body card-block">
+                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="edit-name" class=" form-control-label">Tên</label></div>
+                            <div class="col-12 col-md-9" id="edit-name"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="edit-dob" class=" form-control-label">Ngày sinh</label></div>
+                            <div class="col-12 col-md-9" id="edit-dob"><input type="date" id="edit-dob-val" class="form-control"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="edit-address" class=" form-control-label">Địa chỉ</label></div>
+                            <div class="col-12 col-md-9" id="edit-address"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label class=" form-control-label">Tài khoản</label></div>
+                            <div class="col-12 col-md-9" id="edit-account"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="edit-password" class=" form-control-label">Mật khẩu</label></div>
+                            <div class="col-12 col-md-9" id="edit-password"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="edit-file" class=" form-control-label">File hồ sơ</label></div>
+                            <div class="col-12 col-md-9" id="edit-file"><input type="file" id="edit-file-val" name="file-input" class="form-control-file"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="editById()" data-dismiss="modal">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="../vendors/jquery/dist/jquery.min.js"></script>
 <script src="../vendors/popper.js/dist/umd/popper.min.js"></script>
